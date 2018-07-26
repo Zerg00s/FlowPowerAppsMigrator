@@ -1,6 +1,6 @@
-﻿$siteURL = "https://source.sharepoint.com/teams/portal"
+﻿$SOURCE_SITE_URL = Read-Host "Enter the URL of the original (old) SharePoint site"
 
-Connect-PnPOnline -Url $siteURL
+Connect-PnPOnline -Url $SOURCE_SITE_URL
 
 $lists = Get-PnPList -Includes Views,Fields,DefaultView
 $lists = $lists | where hidden -eq $false
@@ -8,7 +8,7 @@ $lists = $lists | where hidden -eq $false
 $resources = @()
 $line = "" | select resource,oldId,newId
 $line.resource = "SiteUrl"
-$line.oldId = $siteURL
+$line.oldId = $SOURCE_SITE_URL
 $resources += $line
 
 $lists | ForEach-Object{
@@ -24,3 +24,4 @@ $lists | ForEach-Object{
 }
 
 $resources | Export-Csv -Path "resourceMapping.csv"
+Write-Host resourceMapping.csv generated -ForegroundColor Green
