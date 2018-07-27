@@ -42,12 +42,11 @@ for($k=0;$k -lt $packages.count; $k++){
                     }
                 }
             }
-            Write-host "App Package found:" $msAppPackage
+            Write-host "App sub-package found:" $msAppPackage
             Remove-Item $msAppPackage.FullName -Force
             [System.IO.Compression.ZipFile]::CreateFromDirectory($msAppPackageDestinationFolder, $msAppPackage.FullName, [System.IO.Compression.CompressionLevel]::Optimal, $false)
             Remove-Item $msAppPackageDestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
         }
-
     }
 
     Remove-Item $($CurrentPath + "dist\Converted_"+$package.BaseName + ".zip") -Force -Recurse -ErrorAction SilentlyContinue

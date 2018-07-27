@@ -8,7 +8,7 @@ $resources = Import-Csv -Path .\resourceMapping.csv
 $resources[0].newId = $TARGET_SITE_URL
 
 $lists | ForEach-Object{
-    $line = "" | select resource,oldId,newId
+    $line = "" | Select-Object resource,oldId,newId
     $line.resource = $_.RootFolder.ServerRelativeUrl.Replace($_.ParentWebUrl,"")
     $line.newId = $_.ID
     $resource = $resources | Where-Object resource -eq $line.resource
