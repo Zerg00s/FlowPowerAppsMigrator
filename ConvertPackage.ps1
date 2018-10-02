@@ -19,8 +19,10 @@ for($k=0;$k -lt $packages.count; $k++){
 
     $files | ForEach-Object {
         for($i=0;$i -lt $resources.Count;$i++){
-            if($resources[$i].newId -ne $null){
+            if([System.String]::IsNullOrEmpty($resources[$i].newId) -eq $false){
                 (Get-Content $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content $_.FullName
+            }else{
+                Write-host Destination GUID not found. Make sure the data source exists: $(resources[$i].newId)
             }
         }
     }
@@ -37,8 +39,10 @@ for($k=0;$k -lt $packages.count; $k++){
             $files =  Get-ChildItem $msAppPackageDestinationFolder -Recurse -File -Filter "*.json*"
             $files | ForEach-Object {
                 for($i=0;$i -lt $resources.Count;$i++){
-                    if($resources[$i].newId -ne $null){
+                    if([System.String]::IsNullOrEmpty($resources[$i].newId) -eq $false){
                         (Get-Content $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content $_.FullName
+                    }else{
+                        Write-host Destination GUID not found. Make sure the data source exists: $(resources[$i].newId)
                     }
                 }
             }
