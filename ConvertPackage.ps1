@@ -20,7 +20,9 @@ for($k=0;$k -lt $packages.count; $k++){
     $files | ForEach-Object {
         for($i=0;$i -lt $resources.Count;$i++){
             if([System.String]::IsNullOrEmpty($resources[$i].newId) -eq $false){
+                Write-Host Converting $resources[$i].resource ... -NoNewline 
                 (Get-Content $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content $_.FullName
+                Write-Host Done. -ForegroundColor Green
             }else{
                 Write-host Destination GUID not found. Make sure the data source exists: $(resources[$i].newId)
             }
