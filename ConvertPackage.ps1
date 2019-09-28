@@ -2,49 +2,55 @@
 $CurrentPath = (Get-Location).Path + "\"
 
 # Clean previously generated packages
-Get-ChildItem $CurrentPath -Filter "Converted*" -Recurse| Remove-Item
+Get-ChildItem $CurrentPath -Filter "Converted*" -Recurse | Remove-Item
 
 $packages = Get-ChildItem -Path .\src -Filter "*.zip"
 
 $resources = Import-Csv  -Path .\resourceMapping.csv
 
-for($k=0;$k -lt $packages.count; $k++){
+for ($k = 0; $k -lt $packages.count; $k++) {
     $package = $packages[$k];
-    $DestinationFolder = $CurrentPath +"dist\"+$package.BaseName
+    $DestinationFolder = $CurrentPath + "dist\" + $package.BaseName
     Remove-Item $DestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
 
     [System.IO.Compression.ZipFile]::ExtractToDirectory($package.FullName, $DestinationFolder)
 
-    $files =  Get-ChildItem $DestinationFolder -Recurse -File -Filter "*.json*"
+    $files = Get-ChildItem $DestinationFolder -Recurse -File -Filter "*.json*"
 
     $files | ForEach-Object {
-        for($i=0;$i -lt $resources.Count;$i++){
-            if([System.String]::IsNullOrEmpty($resources[$i].newId) -eq $false){
+        for ($i = 0; $i -lt $resources.Count; $i++) {
                 Write-Host Converting $resources[$i].resource ... -NoNewline 
-                (Get-Content $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content $_.FullName
-                Write-Host Done. -ForegroundColor Green
-            }else{
-                Write-host Destination GUID not found. Make sure the data source exists: $(resources[$i].newId)
+                if ($resources[$i].newId){
+                    (Get-Content $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content $_.FullName
+                    Write-Host Done. -ForegroundColor Green
+                }
+            else {
+                 if($resources[$i].resource -match ".aspx" -eq $false){
+                    Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource) -ForegroundColor red
+                }
             }
         }
     }
 
     # Searching for MSAPP file. These are zip-archives that need to be Converted too:
-    $msappPackages =  Get-ChildItem $DestinationFolder -Recurse -File -Filter "*.msapp*"
+    $msappPackages = Get-ChildItem $DestinationFolder -Recurse -File -Filter "*.msapp*"
 
-    if ($null -ne $msappPackages -and $msappPackages.Count -ne 0){
-        for($y=0;$y -lt $msappPackages.count; $y++){
+    if ($null -ne $msappPackages -and $msappPackages.Count -ne 0) {
+        for ($y = 0; $y -lt $msappPackages.count; $y++) {
             $msAppPackage = $msappPackages[$y];
-            $msAppPackageDestinationFolder = $msappPackage.Directory.FullName +"\"+$msAppPackage.BaseName
+            $msAppPackageDestinationFolder = $msappPackage.Directory.FullName + "\" + $msAppPackage.BaseName
             [System.IO.Compression.ZipFile]::ExtractToDirectory($msAppPackage.FullName , $msAppPackageDestinationFolder)
 
-            $files =  Get-ChildItem $msAppPackageDestinationFolder -Recurse -File -Filter "*.json*"
+            $files = Get-ChildItem $msAppPackageDestinationFolder -Recurse -File -Filter "*.json*"
             $files | ForEach-Object {
-                for($i=0;$i -lt $resources.Count;$i++){
-                    if([System.String]::IsNullOrEmpty($resources[$i].newId) -eq $false){
+                for ($i = 0; $i -lt $resources.Count; $i++) {
+                    if ([System.String]::IsNullOrEmpty($resources[$i].newId) -eq $false) {
                         (Get-Content $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content $_.FullName
-                    }else{
-                        Write-host Destination GUID not found. Make sure the data source exists: $(resources[$i].newId)
+                    }
+                    else {                        
+                        if($resources[$i].resource -match ".aspx" -eq $false){
+                            Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource) -ForegroundColor red
+                        }
                     }
                 }
             }
@@ -55,8 +61,8 @@ for($k=0;$k -lt $packages.count; $k++){
         }
     }
 
-    Remove-Item $($CurrentPath + "dist\Converted_"+$package.BaseName + ".zip") -Force -Recurse -ErrorAction SilentlyContinue
-    [System.IO.Compression.ZipFile]::CreateFromDirectory($DestinationFolder, $CurrentPath + "dist\Converted_"+$package.BaseName + ".zip", [System.IO.Compression.CompressionLevel]::Optimal, $false)
+    Remove-Item $($CurrentPath + "dist\Converted_" + $package.BaseName + ".zip") -Force -Recurse -ErrorAction SilentlyContinue
+    [System.IO.Compression.ZipFile]::CreateFromDirectory($DestinationFolder, $CurrentPath + "dist\Converted_" + $package.BaseName + ".zip", [System.IO.Compression.CompressionLevel]::Optimal, $false)
 
     Remove-Item $DestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
 }
