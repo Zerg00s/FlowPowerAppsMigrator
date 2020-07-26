@@ -1,6 +1,6 @@
 ﻿$SOURCE_SITE_URL = Read-Host "Enter the URL of the original (old) SharePoint site"
 
-Connect-PnPOnline -Url $SOURCE_SITE_URL
+Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin
 
 $lists = Get-PnPList -Includes Views, Fields, DefaultView
 $lists = $lists | Where-Object hidden -eq $false
