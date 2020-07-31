@@ -22,7 +22,7 @@ Run the script below:
 The scripts will iterate through all zip files inside the \src directory and convert them to be compatible with the new Office 365 tenant.
 - `powershell`
 - `cd C:\FlowPowerAppsMigrator`
-- `.\RunAllSripts.ps1`
+- `.\RunAllScripts.ps1`
 
 ![](images/2018-07-25-21-00-48.png)
 
