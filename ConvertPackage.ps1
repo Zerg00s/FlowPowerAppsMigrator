@@ -15,21 +15,25 @@ for ($k = 0; $k -lt $packages.count; $k++) {
 
     [System.IO.Compression.ZipFile]::ExtractToDirectory($package.FullName, $DestinationFolder)
 
-    $files = Get-ChildItem $DestinationFolder -Recurse -File -Filter "*.json*"
-
+    $files = Get-ChildItem $DestinationFolder -Recurse -File -Include ('*.json', '*.xml')
     $files | ForEach-Object {
         for ($i = 0; $i -lt $resources.Count; $i++) {
-                Write-Host Converting $resources[$i].resource ... -NoNewline 
-                if ($resources[$i].newId){
-                    (Get-Content $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content $_.FullName
-                    Write-Host Done. -ForegroundColor Green
-                }
+            Write-Host Converting $resources[$i].resource ... -NoNewline 
+            if ($resources[$i].newId) {
+                (Get-Content -LiteralPath $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content -LiteralPath $_.FullName
+                Write-Host Done. -ForegroundColor Green
+            }
             else {
-                 if($resources[$i].resource -match ".aspx" -eq $false){
+                if ($resources[$i].resource -match ".aspx" -eq $false) {
                     Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource) -ForegroundColor red
                 }
             }
         }
+    }
+
+    $solutionManifest = Get-ChildItem -Path $DestinationFolder -Filter "solution.xml"
+    if($solutionManifest){
+        Write-host  $package.Name is a Solution Package -ForegroundColor Cyan
     }
 
     # Searching for MSAPP file. These are zip-archives that need to be Converted too:
@@ -45,10 +49,10 @@ for ($k = 0; $k -lt $packages.count; $k++) {
             $files | ForEach-Object {
                 for ($i = 0; $i -lt $resources.Count; $i++) {
                     if ([System.String]::IsNullOrEmpty($resources[$i].newId) -eq $false) {
-                        (Get-Content $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content $_.FullName
+                        (Get-Content -LiteralPath $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content -LiteralPath $_.FullName
                     }
                     else {                        
-                        if($resources[$i].resource -match ".aspx" -eq $false){
+                        if ($resources[$i].resource -match ".aspx" -eq $false) {
                             Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource) -ForegroundColor red
                         }
                     }
