@@ -32,7 +32,7 @@ Example:
 
 ![](images/2018-07-25-21-08-30.png)
 
-## 4. Navigae to the \dist folder and collect converted flows and apps
+## 4. Navigate to the \dist folder and collect converted flows and apps
 
 ![](images/2018-07-25-21-11-04.png)
 
