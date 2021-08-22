@@ -53,11 +53,11 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 Power Automate data sources are all converted:
 
-![](MISC/IMG/DataSourcesConverted.png)
+![](MISC/IMG/DataSourcesConverted_2.0.png)
 
 Flows actions are also converted:
 
-![](MISC/IMG/FlowsConverted.png)
+![](MISC/IMG/FlowsConverted_2.0.png)
 
 ## How it works
 
