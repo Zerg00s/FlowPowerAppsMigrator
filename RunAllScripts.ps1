@@ -9,10 +9,10 @@ Write-Host $Path -ForegroundColor Green
 
 Write-host
 Write-host
-Write-Host "______ _                          _____                            "
-Write-Host "|  ____| |                 ___    |  __ \                          "
-Write-Host "| |__  | | _____      __  ( _ )   | |__) |____      _____ _ __     "
-Write-Host "|  __| | |/ _ \ \ /\ / /  / _ \/\ |  ___/ _ \ \ /\ / / _ \ `'__|    "
+Write-Host " ______ _                          _____                            "
+Write-Host "|  ____| |                 ___    |  __ \                           "
+Write-Host "| |__  | | _____      __  ( _ )   | |__) |____      _____ _ __      "
+Write-Host "|  __| | |/ _ \ \ /\ / /  / _ \/\ |  ___/ _ \ \ /\ / / _ \ `'__|   "
 Write-Host "| |    | | (_) \ V  V /  | (_>  < | |  | (_) \ V  V /  __/ |       "
 Write-Host "|_|    |_|\___/ \_/\_/    \___/\/_|_|   \___/ \_/\_/ \___|_|       "
 Write-Host "    /\                     |  \/  (_)               | |            "
