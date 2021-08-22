@@ -1,31 +1,31 @@
 param (
     [string]$Path
 )
+# Created by Denis Molodtsov, 2018, @Zerg00s
 
 $ErrorActionPreference = "Stop"
 
 $host.UI.RawUI.WindowTitle = "Flow & Power Apps Migrator"
-Write-Host $Path -ForegroundColor Green
 
 Write-host
 Write-host
-Write-Host " ______ _                          _____                            "
-Write-Host "|  ____| |                 ___    |  __ \                           "
-Write-Host "| |__  | | _____      __  ( _ )   | |__) |____      _____ _ __      "
-Write-Host "|  __| | |/ _ \ \ /\ / /  / _ \/\ |  ___/ _ \ \ /\ / / _ \ `'__|   "
-Write-Host "| |    | | (_) \ V  V /  | (_>  < | |  | (_) \ V  V /  __/ |       "
-Write-Host "|_|    |_|\___/ \_/\_/    \___/\/_|_|   \___/ \_/\_/ \___|_|       "
-Write-Host "    /\                     |  \/  (_)               | |            "
-Write-Host "   /  \   _ __  _ __  ___  | \  / |_  __ _ _ __ __ _| |_ ___  _ __ "
-Write-Host "  / /\ \ | `'_ \| `'_ \/ __| | |\/| | |/ _`` | `'__/ _`` | __/ _ \| `'__|"
-Write-Host " / ____ \| |_) | |_) \__ \ | |  | | | (_| | | | (_| | || (_) | |   "
-Write-Host "/_/    \_\ .__/| .__/|___/ |_|  |_|_|\__, |_|  \__,_|\__\___/|_|   "
-Write-Host "         | |   | |                    __/ |                        "
-Write-Host "         |_|   |_|                   |___/                         "
-Write-host                                                                       
-Write-host "---------------------------------------------------------------------------"
+Write-Host "       ______ _                          _____                            " -ForegroundColor Yellow
+Write-Host "      |  ____| |                 ___    |  __ \                           " -ForegroundColor Yellow
+Write-Host "      | |__  | | _____      __  ( _ )   | |__) |____      _____ _ __      " -ForegroundColor Yellow
+Write-Host "      |  __| | |/ _ \ \ /\ / /  / _ \/\ |  ___/ _ \ \ /\ / / _ \ `'__|    " -ForegroundColor Yellow
+Write-Host "      | |    | | (_) \ V  V /  | (_>  < | |  | (_) \ V  V /  __/ |        " -ForegroundColor Yellow
+Write-Host "      |_|    |_|\___/ \_/\_/    \___/\/_|_|   \___/ \_/\_/ \___|_|        " -ForegroundColor Yellow
+Write-Host "          /\                     |  \/  (_)               | |             " -ForegroundColor Cyan
+Write-Host "         /  \   _ __  _ __  ___  | \  / |_  __ _ _ __ __ _| |_ ___  _ __  " -ForegroundColor Cyan
+Write-Host "        / /\ \ | `'_ \| `'_ \/ __| | |\/| | |/ _`` | `'__/ _`` | __/ _ \| `'__|" -ForegroundColor Cyan
+Write-Host "       / ____ \| |_) | |_) \__ \ | |  | | | (_| | | | (_| | || (_) | |   " -ForegroundColor Cyan
+Write-Host "      /_/    \_\ .__/| .__/|___/ |_|  |_|_|\__, |_|  \__,_|\__\___/|_|   " -ForegroundColor Cyan
+Write-Host "               | |   | |                    __/ |                        " -ForegroundColor Cyan
+Write-Host "               |_|   |_|                   |___/                         " -ForegroundColor Cyan
+Write-host                                                                             
+Write-host "-----------------------------------------------------------------------------"
 Write-host   
-# Created by Denis Molodtsov, 2018
+
 
 Set-Location $Path
 . .\MISC\PS-Forms.ps1
