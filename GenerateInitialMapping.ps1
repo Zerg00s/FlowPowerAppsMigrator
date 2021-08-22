@@ -25,5 +25,5 @@ $lists | ForEach-Object {
     $resources += $line
 }
 
-$resources | Export-Csv -Path "resourceMapping.csv"
+$resources | Export-Csv -Path "resourceMapping.csv" -NoTypeInformation
 Write-Host resourceMapping.csv generated -ForegroundColor Green

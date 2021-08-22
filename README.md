@@ -63,6 +63,7 @@ Flows actions are also converted:
 
 **Flow & Power Apps Migrator** finds all unique IDs pointing to the source SharePoint site and replaces them with the destination IDs. `resourceMapping.csv` contains the mapping of these IDs.
 
+![](MISC/IMG/CSV.png)
 
 ## Limitations
 
