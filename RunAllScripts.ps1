@@ -41,6 +41,8 @@ $Migration = @{
 
 $Migration = Get-FormItemProperties -item $Migration -dialogTitle "Enter source and target sites" -propertiesOrder @("SOURCE_SITE_URL", "TARGET_SITE_URL") 
 
+$SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
+$TARGET_SITE_URL = $Migration.TARGET_SITE_URL
 
 . .\GenerateInitialMapping.ps1
 . .\CompleteResourceMapping.ps1

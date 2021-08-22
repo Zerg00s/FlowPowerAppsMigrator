@@ -43,7 +43,8 @@ The scripts will iterate through all ZIP files inside the `\src` directory and c
 ## 5. Import converted flows and apps
 Now go ahead and import your flows and apps to the destination tenant. All SharePoint actions are now be converted and to the new location.
 
-![](MISC/IMG/2018-07-25-21-14-55.png)
+
+![](MISC/IMG/DataSourcesConveted.png)
 
 
 ## How it works
