@@ -8,7 +8,7 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 
 # Prerequisites 
 
-- [Download the latest version of the Flow & Power Apps Migrator](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases/download/1.4/FlowPowerAppsMigrator.zip).
+- [Download the latest version of the Flow & Power Apps Migrator](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases/download/2.0/FlowPowerAppsMigrator.zip).
 - Extract the ZIP package.
 - Run the PowerShell script to install [PnP PowerShell](https://github.com/SharePoint/PnP-PowerShell):
   `Install-Module SharePointPnPPowerShellOnline` 
@@ -26,13 +26,13 @@ First, export all your flows and apps on disk. Place them in the `\src` folder.
 
 ## 3. Run RunAllSripts.ps1 form PowerShell
 The scripts will iterate through all ZIP files inside the `\src` directory and convert them to be compatible with the new Microsoft 365 tenant or site.
-- `powershell`
-- `cd C:\FlowPowerAppsMigrator`
-- `.\RunAllScripts.ps1`
+- Run `Migrate-Packages.bat` script
+![](MISC/IMG/Migrator.png)
 
-![](MISC/IMG/2018-07-25-21-00-48.png)
+- Enter source site URL and target site URL:
+![](MISC/IMG/UI.png)
 
-Example:
+- Sit back and wait for the conversion to finish.
 
 ![](MISC/IMG/2018-07-25-21-08-30.png)
 

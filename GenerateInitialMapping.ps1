@@ -1,13 +1,4 @@
-﻿param (
-    [string]$Path
-)
-
-Set-Location $Path
-
-$host.UI.RawUI.WindowTitle = "Flow & Power Apps Migrator"
-Write-Host $Path -ForegroundColor Green
-
-if($null -eq $SOURCE_SITE_URL){
+﻿if($null -eq $SOURCE_SITE_URL){
     $SOURCE_SITE_URL = Read-Host "Enter the URL of the original (old) SharePoint site"
 }
 
