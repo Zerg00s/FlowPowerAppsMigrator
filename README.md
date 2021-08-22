@@ -19,11 +19,11 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 # Convert flows and apps
 
 ## Export flows and apps
-Export all your flows:
+Export all of your flows:
 
 ![](MISC/IMG/Export.png)
 
-Export all your apps:
+Export all of your apps:
 
 ![](MISC/IMG/ExportApp.png)
 
