@@ -1,3 +1,7 @@
+![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
+![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
+
+
 # Flow & Power Apps Migrator
 
 Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenants or sites? This is a common task when deploying apps and flows to production. Apps and flows have to be exported, imported and SharePoint actions manually updated. These manual updates are error-prone and labor intensive. **Flow & Power Apps Migrator** automatically converts exported flows and apps to be compatible with the target environment. 
@@ -8,7 +12,7 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 - Extract the ZIP package.
 - Run the PowerShell script to install [PnP PowerShell](https://github.com/SharePoint/PnP-PowerShell):
   `Install-Module SharePointPnPPowerShellOnline` 
-- Make sure that SharePoint lists and libraries exist in the target environment. 
+- Make sure that SharePoint lists and libraries exist in the target environment. You can use [Move-Lists](https://github.com/Zerg00s/Move-Lists) for this purpose.
 
 # Convert flows and apps
 
@@ -45,3 +49,11 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 ## How it works
 
 **Flow & Power Apps Migrator** finds all unique IDs pointing to the source SharePoint site and replaces them with the destination IDs. `resourceMapping.csv` contains the mapping of these IDs.
+
+
+## Limitations
+
+- Flow & Power Apps Migrator does not migrate lists and libraries. Use [Move-Lists](https://github.com/Zerg00s/Move-Lists) to migrate SharePoint lists and libraries.
+- Does not support macOS and Linux.
+- Solutions are not supported. You can only use this script against standalone Power Apps and Cloud flows.
+- Only SharePoint data sources are updated.
