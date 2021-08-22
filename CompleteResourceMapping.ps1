@@ -1,5 +1,5 @@
 ﻿$TARGET_SITE_URL = Read-Host "Enter the URL of the destination SharePoint site"
-Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin
+Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
 
 $lists = Get-PnPList -Includes Views, Fields, DefaultView
 $lists = $lists | Where-Object hidden -eq $false
