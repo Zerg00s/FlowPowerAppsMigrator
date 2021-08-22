@@ -1,5 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
+![Version](https://img.shields.io/static/v1?label=Version&message=2.0&color=white)
 
 
 # Flow & Power Apps Migrator
