@@ -27,9 +27,11 @@ First, export all your flows and apps on disk. Place them in the `\src` folder.
 ## 3. Run RunAllSripts.ps1 form PowerShell
 The scripts will iterate through all ZIP files inside the `\src` directory and convert them to be compatible with the new Microsoft 365 tenant or site.
 - Run `Migrate-Packages.bat` script
+
 ![](MISC/IMG/Migrator.png)
 
 - Enter source site URL and target site URL:
+
 ![](MISC/IMG/UI.png)
 
 - Sit back and wait for the conversion to finish.
