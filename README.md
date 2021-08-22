@@ -9,13 +9,11 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 
 # Prerequisites 
 
+- Make sure that SharePoint lists and libraries exist in the target environment. You can use [Move-Lists](https://github.com/Zerg00s/Move-Lists) for this purpose.
 - [Download the latest version of the Flow & Power Apps Migrator](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases/download/2.0/FlowPowerAppsMigrator.zip).
 - Extract the ZIP package.
 
-
 <img style="padding-left:50px" src="MISC/IMG/UnzippedPackage.png">
-
-- Make sure that SharePoint lists and libraries exist in the target environment. You can use [Move-Lists](https://github.com/Zerg00s/Move-Lists) for this purpose.
 
 # Convert flows and apps
 
