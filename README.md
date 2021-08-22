@@ -10,14 +10,22 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 
 - [Download the latest version of the Flow & Power Apps Migrator](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases/download/2.0/FlowPowerAppsMigrator.zip).
 - Extract the ZIP package.
+
+
+<img style="padding-left:50px" src="MISC/IMG/UnzippedPackage.png">
+
 - Make sure that SharePoint lists and libraries exist in the target environment. You can use [Move-Lists](https://github.com/Zerg00s/Move-Lists) for this purpose.
 
 # Convert flows and apps
 
 ## Export flows and apps
-First, export all your flows and apps on disk. Place them in the `\src` folder.
+Export all your flows:
 
-![](MISC/IMG/2018-07-25-20-53-52.png)
+![](MISC/IMG/Export.png)
+
+Export all your apps:
+
+![](MISC/IMG/ExportApp.png)
 
 ## 2. Place exported flows and apps in the src folder
 ![](MISC/IMG/2018-07-25-20-57-29.png)
@@ -26,15 +34,15 @@ First, export all your flows and apps on disk. Place them in the `\src` folder.
 The scripts will iterate through all ZIP files inside the `\src` directory and convert them to be compatible with the new Microsoft 365 tenant or site.
 - Run `Migrate-Packages.bat` script
 
-![](MISC/IMG/Migrator.png)
+<img style="padding-left:50px" src="MISC/IMG/Migrator.png">
 
 - Enter source site URL and target site URL:
 
-![](MISC/IMG/UI.png)
+<img style="padding-left:50px" src="MISC/IMG/UI.png">
 
 - Sit back and wait for the conversion to finish.
 
-![](MISC/IMG/2018-07-25-21-08-30.png)
+
 
 ## 4. Navigate to the \dist folder and collect converted flows and apps
 
@@ -44,8 +52,13 @@ The scripts will iterate through all ZIP files inside the `\src` directory and c
 Now go ahead and import your flows and apps to the destination tenant. All SharePoint actions are now be converted and to the new location.
 
 
-![](MISC/IMG/DataSourcesConveted.png)
+Power Automate data sources
 
+![](MISC/IMG/DataSourcesConverted.png)
+
+Flows actions
+
+![](MISC/IMG/FlowsConverted.png)
 
 ## How it works
 
