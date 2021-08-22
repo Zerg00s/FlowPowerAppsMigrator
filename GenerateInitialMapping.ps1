@@ -1,18 +1,15 @@
-﻿Set-Location $Path
-# . .\MISC\PS-Forms.ps1
+﻿param (
+    [string]$Path
+)
 
-$SOURCE_SITE_URL = Read-Host "Enter the URL of the original (old) SharePoint site"
+Set-Location $Path
 
-# $Migration = @{
-#     SOURCE_SITE_URL = "https://contoso.sharepoint.com/sites/Site_A"
-#     Target_Site = "https://contoso.sharepoint.com/sites/Site_b"
-# }
+$host.UI.RawUI.WindowTitle = "Flow & Power Apps Migrator"
+Write-Host $Path -ForegroundColor Green
 
-$Migration = Get-FormItemProperties -item $Migration -dialogTitle "Enter source and target sites" -propertiesOrder @("SOURCE_SITE_URL", "Target_Site") 
-
-Get-ChildItem -Recurse | Unblock-File
-# Legacy PowerShell PnP Module is used because the new one has a critical bug
-Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
+if($null -eq $SOURCE_SITE_URL){
+    $SOURCE_SITE_URL = Read-Host "Enter the URL of the original (old) SharePoint site"
+}
 
 Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
 

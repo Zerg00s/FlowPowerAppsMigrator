@@ -1,4 +1,6 @@
-﻿$TARGET_SITE_URL = Read-Host "Enter the URL of the destination SharePoint site"
+﻿if ($null -eq $TARGET_SITE_URL) {
+    $TARGET_SITE_URL = Read-Host "Enter the URL of the destination SharePoint site"
+}
 Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
 
 $lists = Get-PnPList -Includes Views, Fields, DefaultView
