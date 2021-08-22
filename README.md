@@ -51,11 +51,11 @@ The scripts will iterate through all ZIP files inside the `\src` directory and c
 Now go ahead and import your flows and apps to the destination tenant. All SharePoint actions are now be converted and to the new location.
 
 
-Power Automate data sources are all converted:
+###  <b>Power Automate</b> data sources are all converted
 
 ![](MISC/IMG/DataSourcesConverted_2.0.png)
 
-Flows actions are also converted:
+### <b>Flow actions</b> are also converted
 
 ![](MISC/IMG/FlowsConverted_2.0.png)
 
