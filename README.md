@@ -7,6 +7,8 @@
 
 Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenants or sites? This is a common task when deploying apps and flows to production. Apps and flows have to be exported, imported and SharePoint actions manually updated. These manual updates are error-prone and labor intensive. **Flow & Power Apps Migrator** automatically converts exported flows and apps to be compatible with the target environment. 
 
+## Watch a Demo 
+[![](MISC/IMG/Video_Thumbnail.jpg)](https://youtu.be/06io-y3pMKU)
 # Prerequisites 
 
 - Make sure that SharePoint lists and libraries exist in the target environment. You can use [Move-Lists](https://github.com/Zerg00s/Move-Lists) for this purpose.
