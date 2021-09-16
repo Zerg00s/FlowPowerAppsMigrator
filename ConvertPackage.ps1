@@ -9,7 +9,8 @@ $packages = Get-ChildItem -Path .\src -Filter "*.zip"
 $resources = Import-Csv  -Path .\resourceMapping.csv
 
 for ($k = 0; $k -lt $packages.count; $k++) {
-    $package = $packages[$k];
+    #  $package = $packages[0]
+    $package = $packages[$k]
     $DestinationFolder = $CurrentPath + "dist\" + $package.BaseName
     Remove-Item $DestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
 
@@ -41,6 +42,7 @@ for ($k = 0; $k -lt $packages.count; $k++) {
 
     if ($null -ne $msappPackages -and $msappPackages.Count -ne 0) {
         for ($y = 0; $y -lt $msappPackages.count; $y++) {
+            # $msAppPackage = $msappPackages[0];
             $msAppPackage = $msappPackages[$y];
             $msAppPackageDestinationFolder = $msappPackage.Directory.FullName + "\" + $msAppPackage.BaseName
             [System.IO.Compression.ZipFile]::ExtractToDirectory($msAppPackage.FullName , $msAppPackageDestinationFolder)
@@ -60,13 +62,21 @@ for ($k = 0; $k -lt $packages.count; $k++) {
             }
             Write-host "App sub-package found:" $msAppPackage
             Remove-Item $msAppPackage.FullName -Force
-            [System.IO.Compression.ZipFile]::CreateFromDirectory($msAppPackageDestinationFolder, $msAppPackage.FullName, [System.IO.Compression.CompressionLevel]::Optimal, $false)
+            Push-Location $msAppPackageDestinationFolder
+           
+            tar -a -c -f $($msAppPackage.FullName) *
+            # [System.IO.Compression.ZipFile]::CreateFromDirectory($msAppPackageDestinationFolder, $msAppPackage.FullName, [System.IO.Compression.CompressionLevel]::Optimal, $false)
+            Pop-Location
             Remove-Item $msAppPackageDestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
+            
         }
     }
 
     Remove-Item $($CurrentPath + "dist\Converted_" + $package.BaseName + ".zip") -Force -Recurse -ErrorAction SilentlyContinue
-    [System.IO.Compression.ZipFile]::CreateFromDirectory($DestinationFolder, $CurrentPath + "dist\Converted_" + $package.BaseName + ".zip", [System.IO.Compression.CompressionLevel]::Optimal, $false)
+    Push-Location $($DestinationFolder)
+    tar -a -c -f $("..\Converted_" + $package.BaseName + ".zip") *
+    # [System.IO.Compression.ZipFile]::CreateFromDirectory($DestinationFolder, $CurrentPath + "dist\Converted_" + $package.BaseName + ".zip", [System.IO.Compression.CompressionLevel]::Optimal, $false)
+    Pop-Location
 
     Remove-Item $DestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
 }
