@@ -71,5 +71,8 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 - Flow & Power Apps Migrator does not migrate lists and libraries. Use [Move-Lists](https://github.com/Zerg00s/Move-Lists) to migrate SharePoint lists and libraries.
 - Does not support macOS and Linux.
-- Solutions are not supported. You can only use this script against standalone Power Apps and Cloud flows.
 - Only SharePoint data sources are updated.
+
+# Latest Updates
+
+- 2.1 version added support for migration solutions. Thanks to [Mark Doria](https://www.linkedin.com/in/mark-doria/) for helping with this feature.
