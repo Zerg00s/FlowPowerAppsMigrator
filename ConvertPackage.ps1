@@ -33,7 +33,7 @@ for ($k = 0; $k -lt $packages.count; $k++) {
     }
 
     $solutionManifest = Get-ChildItem -Path $DestinationFolder -Filter "solution.xml"
-    if($solutionManifest){
+    if ($solutionManifest) {
         Write-host  $package.Name is a Solution Package -ForegroundColor Cyan
     }
 
@@ -64,8 +64,12 @@ for ($k = 0; $k -lt $packages.count; $k++) {
             Remove-Item $msAppPackage.FullName -Force
             Push-Location $msAppPackageDestinationFolder
            
-            tar -a -c -f $($msAppPackage.FullName) *
-            # [System.IO.Compression.ZipFile]::CreateFromDirectory($msAppPackageDestinationFolder, $msAppPackage.FullName, [System.IO.Compression.CompressionLevel]::Optimal, $false)
+            if ($solutionManifest) {
+                tar -a -c -f $($msAppPackage.FullName) *
+            }
+            else {
+                [System.IO.Compression.ZipFile]::CreateFromDirectory($msAppPackageDestinationFolder, $msAppPackage.FullName, [System.IO.Compression.CompressionLevel]::Optimal, $false)
+            }
             Pop-Location
             Remove-Item $msAppPackageDestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
             
@@ -74,8 +78,12 @@ for ($k = 0; $k -lt $packages.count; $k++) {
 
     Remove-Item $($CurrentPath + "dist\Converted_" + $package.BaseName + ".zip") -Force -Recurse -ErrorAction SilentlyContinue
     Push-Location $($DestinationFolder)
-    tar -a -c -f $("..\Converted_" + $package.BaseName + ".zip") *
-    # [System.IO.Compression.ZipFile]::CreateFromDirectory($DestinationFolder, $CurrentPath + "dist\Converted_" + $package.BaseName + ".zip", [System.IO.Compression.CompressionLevel]::Optimal, $false)
+    if ($solutionManifest) {
+        tar -a -c -f $("..\Converted_" + $package.BaseName + ".zip") *
+    }
+    else {
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($DestinationFolder, $CurrentPath + "dist\Converted_" + $package.BaseName + ".zip", [System.IO.Compression.CompressionLevel]::Optimal, $false)
+    }
     Pop-Location
 
     Remove-Item $DestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
