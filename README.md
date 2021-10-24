@@ -38,11 +38,16 @@ The scripts will iterate through all ZIP files inside the `\src` directory and c
 <img style="padding-left:50px" src="MISC/IMG/Migrator.png">
 
 - Enter source site URL and target site URL:
+- Keep `MIGRATE_LISTS` property set to `True` if you want to migrate SharePoint lists and libraries.
 
-<img style="padding-left:50px" src="MISC/IMG/UI.png">
+![image](https://user-images.githubusercontent.com/2797648/138607676-dd256f1c-bb9f-4604-9a6e-d3080ae00686.png
 
-- Sit back and wait for the conversion to finish.
+- Select lists and libraries to migrate
 
+![image](https://user-images.githubusercontent.com/2797648/138607789-1471e92e-c8d8-4813-8b1d-2f2deef962eb.png)
+
+
+- Sit back and wait for the lists and libraries to be migrated and the conversion process to finish.
 
 
 ## 4. Navigate to the \dist folder and collect converted flows and apps
