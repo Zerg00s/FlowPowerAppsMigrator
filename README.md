@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.0&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.1&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -110,6 +110,10 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 
 # Latest Updates
+
+### 3.1 Version 
+
+- Fixed a bug that corrupted solution zip files during the conversion process. It made it impossible to import solutions.
 
 ### 3.0 Version - Major update
 
