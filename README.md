@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=2.1&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.0&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -75,4 +75,15 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 # Latest Updates
 
-- 2.1 version added support for migration solutions. Thanks to [Mark Doria](https://www.linkedin.com/in/mark-doria/) for helping with this feature.
+### 3.0 Version - Major update
+
+New features added:
+
+- `Migrate-Packages.bat` script now migrates SharePoint lists and libraries that your Apps and Flow depend on.
+- Added `Prepare-Deployment-Package-for-Client.bat` script that lets you prepare a deployment package that you can share with your Clients or Partners. Running this script will generate a package directory that you can then send to your Clients and Partners. Distribution of your apps and flows is now easier than ever.
+
+### 2.1 Version
+
+New feature added:
+
+- added support for migration solutions. Thanks to [Mark Doria](https://www.linkedin.com/in/mark-doria/) for helping with this feature.
