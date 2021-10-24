@@ -69,9 +69,34 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 ## Limitations
 
-- Flow & Power Apps Migrator does not migrate lists and libraries. Use [Move-Lists](https://github.com/Zerg00s/Move-Lists) to migrate SharePoint lists and libraries.
 - Does not support macOS and Linux.
 - Only SharePoint data sources are updated.
+
+# Preparing a deployment package for your Clients and Partners
+
+`Prepare-Deployment-Package-for-Client.bat` script prepares a deployment package that you can share with your Clients or Partners. 
+
+## On your end
+
+- Run `Prepare-Deployment-Package-for-Client.bat`
+- Export your Solutions, Power Apps and Flows and save them to the `package\src` directory
+- Send the `package` directory to your Client or Partner.  
+
+
+## On the Client's side
+
+Run The package directory will contain a .bat file that your clients will click to:
+
+- Run `Convert-Packages.bat`
+- Navigate to the `dist` folder and deploy converted solutions, apps and flows that will be compatible with the target environment.
+
+**Note:** `Convert-Packages.bat` will:
+
+- Deploy SharePoint lists and libraries (if you chose to do package them)
+- Convert Apps and Flows from `src` and saves them to 'dist'.
+
+![image](https://user-images.githubusercontent.com/2797648/138599549-cef7b847-582e-4e91-8c75-a37a8e82a00d.png)
+
 
 # Latest Updates
 
