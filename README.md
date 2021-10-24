@@ -93,7 +93,7 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 - Send the `package` directory to your Client or Partner.  
 
-![image](https://user-images.githubusercontent.com/2797648/138600112-69dbe03d-3f66-4c4d-858a-d1473358280b.png)
+![image](https://user-images.githubusercontent.com/2797648/138608613-3ede0cf6-a331-4058-9feb-bf55030c7f55.png)
 
 
 
