@@ -1,4 +1,4 @@
-param (
+﻿param (
     [string]$Path
 )
 # Created by Denis Molodtsov (@Zerg00s) in 2018
@@ -24,8 +24,9 @@ Write-Host "               | |   | |                    __/ |                   
 Write-Host "               |_|   |_|                   |___/                         " -ForegroundColor Cyan
 Write-host                                                                             
 Write-host "-----------------------------------------------------------------------------"
-Write-host   
+Write-host
 
+Write-Host "This script will produce a sharable package that your Client or Partner can use for deployments" -ForegroundColor Yellow
 
 Set-Location $Path
 . .\MISC\PS-Forms.ps1
@@ -36,17 +37,15 @@ Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChe
 
 $Migration = @{
     SOURCE_SITE_URL = "https://contoso.sharepoint.com/sites/Site_A"
-    TARGET_SITE_URL = "https://contoso.sharepoint.com/sites/Site_b"
     MIGRATE_LISTS   = $true
 }
 
 $Migration = Get-FormItemProperties `
     -item $Migration `
-    -dialogTitle "Enter source and target sites" `
-    -propertiesOrder @("SOURCE_SITE_URL", "TARGET_SITE_URL", "MIGRATE_LISTS") 
+    -dialogTitle "Enter source site URL" `
+    -propertiesOrder @("SOURCE_SITE_URL", "MIGRATE_LISTS") 
 
 $SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
-$TARGET_SITE_URL = $Migration.TARGET_SITE_URL
 if ($Migration.MIGRATE_LISTS -like "true" -or 
     $Migration.MIGRATE_LISTS -like "yes" -or
     $Migration.MIGRATE_LISTS -like "1"
@@ -58,12 +57,35 @@ else {
 }
 $MIGRATE_LISTS = $Migration.MIGRATE_LISTS
 
-. .\GenerateInitialMapping.ps1
+
+# Preparing package for the client
+New-Item -ItemType Directory -Force -Path "package" | Out-Null
+. .\GenerateInitialMapping.ps1 -DestinationFolder ".\package"
 if ($MIGRATE_LISTS) {
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Export -SourceSite $SOURCE_SITE_URL
 }
-. .\CompleteResourceMapping.ps1
-if ($MIGRATE_LISTS) {
-    . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Import -TargetSite $TARGET_SITE_URL
+
+if ((Test-Path -Path "package\MISC") -eq $false) {
+    New-Item -ItemType Directory -Force -Path "package\src" | Out-Null
+    New-Item -ItemType Directory -Force -Path "package\MISC" | Out-Null
+    Copy-Item -Path "MISC\SharePointPnPPowerShellOnline" -Destination "package\MISC" -Recurse
+    Copy-Item -Path "MISC\PS-Forms.ps1" -Destination "package\MISC"
+    Copy-Item -Path "MISC\Move-Lists.ps1" -Destination "package\MISC"
+    Copy-Item -Path "MISC\Convert-Packages.ps1" -Destination "package"
+    Copy-Item -Path "MISC\Convert-Packages.bat" -Destination "package"
+    Copy-Item -Path "Lists.xml" -Destination "package"
+
+    Get-ChildItem *.json | ForEach-Object { 
+        Copy-Item -Path $_.Name -Destination "package"
+    }
+      
+    Copy-Item -Path "ConvertPackage.ps1" -Destination "package"
+    Copy-Item -Path "CompleteResourceMapping.ps1" -Destination "package"
 }
-. .\ConvertPackage.ps1
+
+Write-host '[Important] Next steps' -ForegroundColor Yellow
+Write-host "1) Export your Power Apps And Flows" -ForegroundColor Yellow
+Write-host "2) Place all of these exported ZIP files to the package\src folder" -ForegroundColor Yellow
+Write-host "3) Share the package directory with your Client or Partner" -ForegroundColor Yellow
+Write-host "4) Instruct your Client or Partner to run Convert-Packages.bat on their end" -ForegroundColor Yellow
+Write-host "5) Instruct your Client or Partner deploy all converted Apps and Flows from \dist directory" -ForegroundColor Yellow

@@ -35,35 +35,16 @@ Get-ChildItem -Recurse | Unblock-File
 Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
 
 $Migration = @{
-    SOURCE_SITE_URL = "https://contoso.sharepoint.com/sites/Site_A"
     TARGET_SITE_URL = "https://contoso.sharepoint.com/sites/Site_b"
-    MIGRATE_LISTS   = $true
 }
 
-$Migration = Get-FormItemProperties `
-    -item $Migration `
-    -dialogTitle "Enter source and target sites" `
-    -propertiesOrder @("SOURCE_SITE_URL", "TARGET_SITE_URL", "MIGRATE_LISTS") 
-
-$SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
+$Migration = Get-FormItemProperties -item $Migration -dialogTitle "Enter target site" -propertiesOrder @("TARGET_SITE_URL") 
 $TARGET_SITE_URL = $Migration.TARGET_SITE_URL
-if ($Migration.MIGRATE_LISTS -like "true" -or 
-    $Migration.MIGRATE_LISTS -like "yes" -or
-    $Migration.MIGRATE_LISTS -like "1"
-) {
-    $Migration.MIGRATE_LISTS = $true
-}
-else {
-    $Migration.MIGRATE_LISTS = $false
-}
-$MIGRATE_LISTS = $Migration.MIGRATE_LISTS
 
-. .\GenerateInitialMapping.ps1
-if ($MIGRATE_LISTS) {
-    . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Export -SourceSite $SOURCE_SITE_URL
-}
-. .\CompleteResourceMapping.ps1
-if ($MIGRATE_LISTS) {
+Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+$xmlFiles = Get-ChildItem *.xml
+if($xmlFiles.Count -ne 0){
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Import -TargetSite $TARGET_SITE_URL
 }
+. .\CompleteResourceMapping.ps1 -DoNotReconnect
 . .\ConvertPackage.ps1

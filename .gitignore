@@ -3,3 +3,7 @@ settings.json
 /temp
 /dist
 /samples
+/package
+/FlowPowerAppsMigrator
+Lists.xml
+*.json

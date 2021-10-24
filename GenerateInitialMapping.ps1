@@ -1,4 +1,9 @@
-﻿if($null -eq $SOURCE_SITE_URL){
+﻿[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $false)]
+    [string]$DestinationFolder = $null
+)
+if ($null -eq $SOURCE_SITE_URL) {
     $SOURCE_SITE_URL = Read-Host "Enter the URL of the original (old) SharePoint site"
 }
 
@@ -25,5 +30,12 @@ $lists | ForEach-Object {
     $resources += $line
 }
 
-$resources | Export-Csv -Path "resourceMapping.csv" -NoTypeInformation
+if ($DestinationFolder) {
+    $destinationCsvPath = Join-Path $DestinationFolder "resourceMapping.csv"
+}
+else {
+    $destinationCsvPath = "resourceMapping.csv"
+}
+
+$resources | Export-Csv -Path $destinationCsvPath -NoTypeInformation
 Write-Host resourceMapping.csv generated -ForegroundColor Green
