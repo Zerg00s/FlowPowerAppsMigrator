@@ -64,12 +64,8 @@ for ($k = 0; $k -lt $packages.count; $k++) {
             Remove-Item $msAppPackage.FullName -Force
             Push-Location $msAppPackageDestinationFolder
            
-            if ($solutionManifest) {
-                tar -a -c -f $($msAppPackage.FullName) *
-            }
-            else {
-                [System.IO.Compression.ZipFile]::CreateFromDirectory($msAppPackageDestinationFolder, $msAppPackage.FullName, [System.IO.Compression.CompressionLevel]::Optimal, $false)
-            }
+            [System.IO.Compression.ZipFile]::CreateFromDirectory($msAppPackageDestinationFolder, $msAppPackage.FullName, [System.IO.Compression.CompressionLevel]::Optimal, $false)
+            
             Pop-Location
             Remove-Item $msAppPackageDestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
             
