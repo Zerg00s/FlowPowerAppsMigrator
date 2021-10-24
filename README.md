@@ -40,7 +40,7 @@ The scripts will iterate through all ZIP files inside the `\src` directory and c
 - Enter source site URL and target site URL:
 - Keep `MIGRATE_LISTS` property set to `True` if you want to migrate SharePoint lists and libraries.
 
-![image](https://user-images.githubusercontent.com/2797648/138607676-dd256f1c-bb9f-4604-9a6e-d3080ae00686.png
+![image](https://user-images.githubusercontent.com/2797648/138607676-dd256f1c-bb9f-4604-9a6e-d3080ae00686.png)
 
 - Select lists and libraries to migrate
 
