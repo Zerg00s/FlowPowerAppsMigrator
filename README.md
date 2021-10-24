@@ -122,4 +122,4 @@ New features added:
 
 New feature added:
 
-- added support for migration solutions. Thanks to [Mark Doria](https://www.linkedin.com/in/mark-doria/) for helping with this feature.
+- added support for solution migration. Thanks to [Mark Doria](https://www.linkedin.com/in/mark-doria/) for helping with this feature.
