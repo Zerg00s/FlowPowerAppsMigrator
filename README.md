@@ -79,16 +79,27 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 ## On your end
 
 - Run `Prepare-Deployment-Package-for-Client.bat`
+
+![image](https://user-images.githubusercontent.com/2797648/138600042-dc80f7ea-cc7a-4240-9c26-3dc2ed617e4b.png)
+
 - Export your Solutions, Power Apps and Flows and save them to the `package\src` directory
+
+![image](https://user-images.githubusercontent.com/2797648/138600112-69dbe03d-3f66-4c4d-858a-d1473358280b.png)
+
 - Send the `package` directory to your Client or Partner.  
+
+![image](https://user-images.githubusercontent.com/2797648/138600112-69dbe03d-3f66-4c4d-858a-d1473358280b.png)
+
 
 
 ## On the Client's side
 
-Run The package directory will contain a .bat file that your clients will click to:
-
-- Run `Convert-Packages.bat`
+- If not already exsists, create a SharePoint Online site. It will contain SharePoint Lists and Libraries that Power Apps/Flows require.
+- Open the `package` directory.
+- Run `Convert-Packages.bat` script. 
+- Provide target site URL.
 - Navigate to the `dist` folder and deploy converted solutions, apps and flows that will be compatible with the target environment.
+- Import all solutions, flows and apps from the `dist` directory.
 
 **Note:** `Convert-Packages.bat` will:
 
