@@ -17,6 +17,23 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 
 <img style="padding-left:50px" src="MISC/IMG/UnzippedPackage.png">
 
+## Migratable artifacts
+
+| Artifact      | Description |
+| ----------- | ----------- |
+| Standalone Canvas Power Apps | ✔       |
+| Standalone Cloud Flows   | ✔        |
+| Standalone Desktop Flows   | ❌        |
+| Standalone Model-driven apps   | N/A (not tested)        |
+| Solutions containing multiple canvas apps and flows  | ✔        |
+| SharePoint Lists   | ✔        |
+| SharePoint Libraries   | ✔        |
+| Modern JSON List customizations  | ✔        |
+| SharePoint data   | ❌       |
+| Lookup fields   | ❌        |
+| Datasources located in a single site  | ✔        |
+| Datasources located in multiple sites and subsites   | ❌        |
+
 # Convert flows, apps and solutions
 
 ## Export flows, apps and solutions
