@@ -22,6 +22,7 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 | Artifact      | Description |
 | ----------- | ----------- |
 | Standalone Canvas Power Apps | ✔       |
+| Canvas Power Apps that trigger Flows  | ✔ (flows are also migrated)       |
 | Standalone Cloud Flows   | ✔        |
 | Standalone Desktop Flows   | ❌        |
 | Standalone Model-driven apps   | N/A (not tested)        |
