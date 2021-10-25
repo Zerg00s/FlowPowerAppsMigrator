@@ -17,9 +17,9 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 
 <img style="padding-left:50px" src="MISC/IMG/UnzippedPackage.png">
 
-# Convert flows and apps
+# Convert flows, apps and solutions
 
-## Export flows and apps
+## Export flows, apps and solutions
 Export all of your flows:
 
 ![](MISC/IMG/Export.png)
@@ -28,7 +28,7 @@ Export all of your apps:
 
 ![](MISC/IMG/ExportApp.png)
 
-## 2. Place exported flows and apps in the src folder
+## 2. Place exported flows, apps and solutions in the src folder
 ![](MISC/IMG/2018-07-25-20-57-29.png)
 
 ## 3. Run Migrate-Packages.bat
@@ -50,11 +50,11 @@ The scripts will iterate through all ZIP files inside the `\src` directory and c
 - Sit back and wait for the lists and libraries to be migrated and the conversion process to finish.
 
 
-## 4. Navigate to the \dist folder and collect converted flows and apps
+## 4. Navigate to the \dist folder and collect converted flows, apps and solutions
 
 ![](MISC/IMG/2018-07-25-21-11-04.png)
 
-## 5. Import converted flows and apps
+## 5. Import converted flows, apps and solutions
 Now go ahead and import your flows and apps to the destination tenant. All SharePoint actions are now be converted and point to the new location.
 
 
