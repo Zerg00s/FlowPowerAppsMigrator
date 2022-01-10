@@ -61,9 +61,8 @@ $MIGRATE_LISTS = $Migration.MIGRATE_LISTS
 . .\GenerateInitialMapping.ps1
 if ($MIGRATE_LISTS) {
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Export -SourceSite $SOURCE_SITE_URL
-}
-. .\CompleteResourceMapping.ps1
-if ($MIGRATE_LISTS) {
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Import -TargetSite $TARGET_SITE_URL
 }
+
+. .\CompleteResourceMapping.ps1
 . .\ConvertPackage.ps1
