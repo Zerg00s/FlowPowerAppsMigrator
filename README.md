@@ -36,6 +36,7 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 | SharePoint Libraries   | ✔        |
 | Modern JSON List customizations  | ✔        |
 | SharePoint data   | ❌       |
+| Content Types   | ❌        |
 | Lookup fields   | ❌        |
 | Datasources located in a single site  | ✔        |
 | Datasources located in multiple sites and subsites   | ❌        |
