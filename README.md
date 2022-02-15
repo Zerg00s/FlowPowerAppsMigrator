@@ -140,6 +140,10 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 # Latest Updates
 
+### 3.3 Version 
+
+- Made console output more clear.
+
 ### 3.1 Version 
 
 - Fixed a bug that corrupted solution zip files during the conversion process. It made it impossible to import solutions.
