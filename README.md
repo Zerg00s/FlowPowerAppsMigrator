@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.3&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.4&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -139,6 +139,10 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 
 # Latest Updates
+
+### 3.4 Version 
+
+- Fixed a major bug preventing export-importing for the lists and libraries.
 
 ### 3.3 Version 
 
