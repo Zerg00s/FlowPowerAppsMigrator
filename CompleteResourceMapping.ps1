@@ -36,4 +36,4 @@ $lists | ForEach-Object {
 }
 
 $resources | Export-Csv -Path "resourceMapping.csv" -NoTypeInformation
-Write-Host resourceMapping.csv fully complete -ForegroundColor Green
+Write-Host Mapping file resourceMapping.csv fully complete -ForegroundColor Green

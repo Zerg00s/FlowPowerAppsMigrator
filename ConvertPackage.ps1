@@ -9,7 +9,6 @@ $packages = Get-ChildItem -Path .\src -Filter "*.zip"
 $resources = Import-Csv  -Path .\resourceMapping.csv
 
 for ($k = 0; $k -lt $packages.count; $k++) {
-    #  $package = $packages[0]
     $package = $packages[$k]
     $DestinationFolder = $CurrentPath + "dist\" + $package.BaseName
     Remove-Item $DestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
@@ -19,14 +18,16 @@ for ($k = 0; $k -lt $packages.count; $k++) {
     $files = Get-ChildItem $DestinationFolder -Recurse -File -Include ('*.json', '*.xml')
     $files | ForEach-Object {
         for ($i = 0; $i -lt $resources.Count; $i++) {
-            Write-Host Converting $resources[$i].resource ... -NoNewline 
+            Write-Host Converting $resources[$i].resource "... "
             if ($resources[$i].newId) {
                 (Get-Content -LiteralPath $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content -LiteralPath $_.FullName
-                Write-Host Done. -ForegroundColor Green
+                Write-host "  [Success] " -ForegroundColor Green -NoNewline
+                Write-host  $($resources[$i].resource) converted
             }
             else {
                 if ($resources[$i].resource -match ".aspx" -eq $false) {
-                    Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource) -ForegroundColor red
+                    Write-host "`  [Warning] " -ForegroundColor Yellow -NoNewline
+                    Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource)
                 }
             }
         }
@@ -37,12 +38,11 @@ for ($k = 0; $k -lt $packages.count; $k++) {
         Write-host  $package.Name is a Solution Package -ForegroundColor Cyan
     }
 
-    # Searching for MSAPP file. These are zip-archives that need to be Converted too:
+    # Searching for an MSAPP file. These are zip-archives that need to be converted too:
     $msappPackages = Get-ChildItem $DestinationFolder -Recurse -File -Filter "*.msapp*"
 
     if ($null -ne $msappPackages -and $msappPackages.Count -ne 0) {
         for ($y = 0; $y -lt $msappPackages.count; $y++) {
-            # $msAppPackage = $msappPackages[0];
             $msAppPackage = $msappPackages[$y];
             $msAppPackageDestinationFolder = $msappPackage.Directory.FullName + "\" + $msAppPackage.BaseName
             [System.IO.Compression.ZipFile]::ExtractToDirectory($msAppPackage.FullName , $msAppPackageDestinationFolder)
@@ -55,7 +55,8 @@ for ($k = 0; $k -lt $packages.count; $k++) {
                     }
                     else {                        
                         if ($resources[$i].resource -match ".aspx" -eq $false) {
-                            Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource) -ForegroundColor red
+                            Write-host "`  [Warning] " -ForegroundColor Yellow -NoNewline
+                            Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource)
                         }
                     }
                 }
@@ -67,8 +68,7 @@ for ($k = 0; $k -lt $packages.count; $k++) {
             [System.IO.Compression.ZipFile]::CreateFromDirectory($msAppPackageDestinationFolder, $msAppPackage.FullName, [System.IO.Compression.CompressionLevel]::Optimal, $false)
             
             Pop-Location
-            Remove-Item $msAppPackageDestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
-            
+            Remove-Item $msAppPackageDestinationFolder -Force -Recurse -ErrorAction SilentlyContinue            
         }
     }
 

@@ -38,4 +38,4 @@ else {
 }
 
 $resources | Export-Csv -Path $destinationCsvPath -NoTypeInformation
-Write-Host resourceMapping.csv generated -ForegroundColor Green
+Write-Host Mapping file resourceMapping.csv is generated -ForegroundColor Green
