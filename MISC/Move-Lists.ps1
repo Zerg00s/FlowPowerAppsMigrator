@@ -23,8 +23,6 @@ param (
 
 $ErrorActionPreference = "Stop"
 
-Clear-Host
-
 Write-Host $Path -ForegroundColor Green
 
 Set-Location $Path
@@ -35,6 +33,7 @@ Get-ChildItem -Recurse | Unblock-File
 Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
 
 if ($MigrationType -eq "Export") {
+    Write-Host "Exporting lists and libraries..." -ForegroundColor Yellow
     Get-ChildItem *.xml | ForEach-Object { Remove-Item -Path $_.FullName }
     Get-ChildItem *.json | ForEach-Object { Remove-Item -Path $_.FullName }
     $lists = Get-PnPList
@@ -53,6 +52,7 @@ if ($MigrationType -eq "Export") {
 }
 
 if ($MigrationType -eq "Import") {
+    Write-Host "Importing lists and libraries..." -ForegroundColor Yellow
     Apply-PnPProvisioningTemplate -Path Lists.xml 
     $jsonFiles = Get-ChildItem *.json
     if ($jsonFiles) {

@@ -43,7 +43,8 @@ $TARGET_SITE_URL = $Migration.TARGET_SITE_URL
 
 Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
 $xmlFiles = Get-ChildItem *.xml
-if($xmlFiles.Count -ne 0){
+if ($xmlFiles.Count -ne 0) {
+    Write-Host Convert-Packages 1: $TARGET_SITE_URL Import of XML -ForegroundColor Yellow
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Import -TargetSite $TARGET_SITE_URL
 }
 . .\CompleteResourceMapping.ps1 -DoNotReconnect
