@@ -1,11 +1,15 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.1&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.2&color=white)
 
 
 # Flow & Power Apps Migrator
 
 Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenants or sites? This is a common task when deploying apps and flows to production. Apps and flows have to be exported, imported and SharePoint actions manually updated. These manual updates are error-prone and labor intensive. **Flow & Power Apps Migrator** automatically converts exported flows and apps to be compatible with the target environment. 
+
+Flow & Power Apps Migrator also helps you migrate **SharePoint lists** that are used as a dependency for your Apps and Flows. There is an interactive UI form that lets you do just that.
+
+Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customized with Power Apps**. 
 
 ## Watch a Demo 
 [![](MISC/IMG/Video_Thumbnail.jpg)](https://youtu.be/06io-y3pMKU)
@@ -22,6 +26,7 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 | Artifact      | Description |
 | ----------- | ----------- |
 | Standalone Canvas Power Apps | ✔       |
+| Customized SharePoint List Forms Canvas apps | ✔       |
 | Canvas Power Apps that trigger Flows  | ✔ (flows are also migrated)       |
 | Standalone Cloud Flows   | ✔        |
 | Standalone Desktop Flows   | ❌        |
@@ -31,6 +36,7 @@ Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenan
 | SharePoint Libraries   | ✔        |
 | Modern JSON List customizations  | ✔        |
 | SharePoint data   | ❌       |
+| Content Types   | ❌        |
 | Lookup fields   | ❌        |
 | Datasources located in a single site  | ✔        |
 | Datasources located in multiple sites and subsites   | ❌        |
