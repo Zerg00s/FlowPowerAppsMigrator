@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.4&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.5&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -139,6 +139,15 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 
 # Latest Updates
+
+### 3.5 Version 
+
+#### New features
+- Added an ability to migrate content types and columns. These will be automatically migrated if your lists have any custom content types.
+
+#### Known issues
+- SharePoint list forms customized with Power Apps are no longer migrated by this tool. There is an issue I am still working on.
+
 
 ### 3.4 Version 
 
