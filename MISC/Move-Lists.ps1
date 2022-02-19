@@ -41,7 +41,29 @@ if ($MigrationType -eq "Export") {
     
     $selectedLists = Get-FormArrayItems ($lists) -dialogTitle "Select lists and libraries to migrate" -key Title
     $titles = $selectedLists.Title
-    Get-pnpProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists -Force -WarningAction Ignore
+
+    # If a list contains custom content types, we will have to move them all.
+    $exportContentTypes = $false
+    foreach ($list in $selectedLists) {
+        $listContentTypes = Get-PnPContentType -List $list         
+        $context = $list.Context        
+        foreach ($contentType in $listContentTypes) {
+            $context.Load($contentType)
+            $context.ExecuteQuery()  
+            [xml]$xml = $contentType.SchemaXml 
+            if ($null -eq $xml.ContentType.FeatureId) {
+                $exportContentTypes = $true;
+            }
+        }
+    } 
+    
+    if ($exportContentTypes) {
+        Get-pnpProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists, ContentTypes, Fields -Force -WarningAction Ignore 
+    }
+    else {
+        Get-pnpProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists -Force -WarningAction Ignore
+    }
+
     ((Get-Content -path Lists.xml -Raw) -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml
     foreach ($title in $titles) {
         # Get the latest list item form layout. Footer, Header and the Body:

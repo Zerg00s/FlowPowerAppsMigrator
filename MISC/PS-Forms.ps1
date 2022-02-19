@@ -296,7 +296,7 @@ function Get-FormArrayItems {
     foreach ($item in $items) {
         $CheckBox = New-Object System.Windows.Forms.CheckBox
         $CheckBox.Location = "20,$inputControlY"
-        $CheckBox.size = "350,$radioButtonHeight" 
+        $CheckBox.size = "370,$radioButtonHeight" 
         $CheckBox.Font = $RadioFont
 
         $props = Get-Member -InputObject $item -MemberType Property

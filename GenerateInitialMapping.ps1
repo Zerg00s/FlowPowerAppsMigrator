@@ -7,6 +7,7 @@ if ($null -eq $SOURCE_SITE_URL) {
     $SOURCE_SITE_URL = Read-Host "Enter the URL of the original (old) SharePoint site"
 }
 
+Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the source site site" -ForegroundColor Cyan
 Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
 
 $lists = Get-PnPList -Includes Views, Fields, DefaultView

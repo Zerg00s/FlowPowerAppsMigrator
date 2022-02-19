@@ -27,7 +27,7 @@ for ($k = 0; $k -lt $packages.count; $k++) {
             else {
                 if ($resources[$i].resource -match ".aspx" -eq $false) {
                     Write-host "`  [Warning] " -ForegroundColor Yellow -NoNewline
-                    Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource)
+                    Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists if used: $($resources[$i].resource)
                 }
             }
         }
@@ -56,7 +56,7 @@ for ($k = 0; $k -lt $packages.count; $k++) {
                     else {                        
                         if ($resources[$i].resource -match ".aspx" -eq $false) {
                             Write-host "`  [Warning] " -ForegroundColor Yellow -NoNewline
-                            Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists: $($resources[$i].resource)
+                            Write-host SharePoint List or a Library is missing in the destination site collection. Make sure it exists if used: $($resources[$i].resource)
                         }
                     }
                 }

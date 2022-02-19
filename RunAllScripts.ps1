@@ -63,10 +63,14 @@ if ($MIGRATE_LISTS) {
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Export -SourceSite $SOURCE_SITE_URL
 }
 
-. .\CompleteResourceMapping.ps1
+Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the target site." -ForegroundColor Cyan
+Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
 
 if ($MIGRATE_LISTS) {   
     Write-Host Applying Imported XML to $TARGET_SITE_URL -ForegroundColor Cyan
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Import -TargetSite $TARGET_SITE_URL
 }
+
+. .\CompleteResourceMapping.ps1 -DoNotReconnect
+
 . .\ConvertPackage.ps1
