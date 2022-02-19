@@ -23,10 +23,10 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 
 ## Migratable artifacts
 
-| Artifact      | Description |
+| Artifact      | Support |
 | ----------- | ----------- |
 | Standalone Canvas Power Apps | ✔       |
-| Customized SharePoint List Forms Canvas apps | ✔       |
+| Customized SharePoint List Forms Canvas apps | ✔ ⚠️  As of March 2022 this feature no longer works. Working on a fix     |
 | Canvas Power Apps that trigger Flows  | ✔ (flows are also migrated)       |
 | Standalone Cloud Flows   | ✔        |
 | Standalone Desktop Flows   | ❌        |
