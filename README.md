@@ -125,12 +125,12 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 - If not already exsists, create a SharePoint Online site. It will contain SharePoint Lists and Libraries that Power Apps/Flows require.
 - Open the `package` directory.
-- Run `Migrate-Packages.bat` script. 
+- Run `Convert-Packages.bat` script. 
 - Provide target site URL.
 - Navigate to the `dist` folder and deploy converted solutions, apps and flows that will be compatible with the target environment.
 - Import all solutions, flows and apps from the `dist` directory.
 
-**Note:** `Migrate-Packages.bat` will:
+**Note:** `Convert-Packages.bat` will:
 
 - Deploy SharePoint lists and libraries (if you chose to do package them)
 - Convert Apps and Flows from `src` and saves them to 'dist'.
