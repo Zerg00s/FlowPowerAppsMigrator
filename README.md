@@ -123,7 +123,7 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 ## On the Client's side
 
-- If not already exsists, create a SharePoint Online site. It will contain SharePoint Lists and Libraries that Power Apps/Flows require.
+- If not already exists, create a SharePoint Online site. It will contain SharePoint Lists and Libraries that Power Apps/Flows require.
 - Open the `package` directory.
 - Run `Convert-Packages.bat` script. 
 - Provide target site URL.
