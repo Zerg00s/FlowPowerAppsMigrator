@@ -16,7 +16,7 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 # Prerequisites 
 
 - Make sure that SharePoint site exist in the target environment. You don't have to create Lists and Libraries because this tool will do it for you.
-- [Download the latest version of the Flow & Power Apps Migrator](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases/download/2.0/FlowPowerAppsMigrator.zip).
+- [Download the latest version of the Flow & Power Apps Migrator](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases).
 - Extract the ZIP package.
 
 <img style="padding-left:50px" src="MISC/IMG/UnzippedPackage.png">
