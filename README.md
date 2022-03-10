@@ -127,7 +127,6 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 - Open the `package` directory.
 - Run `Convert-Packages.bat` script. 
 - Provide target site URL.
-- Navigate to the `dist` folder and deploy converted solutions, apps and flows that will be compatible with the target environment.
 - Import all solutions, flows and apps from the `dist` directory.
 
 **Note:** `Convert-Packages.bat` will:
