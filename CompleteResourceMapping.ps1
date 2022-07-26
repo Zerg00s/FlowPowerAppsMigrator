@@ -24,10 +24,17 @@ $lists | ForEach-Object {
     if ($resource -ne $null) {
         $resource.newId = $line.newId
     }
+    foreach ($view in $_.Views) {
+        $line = "" | Select-Object resource, oldId, newId
+        $line.resource = $view.ServerRelativeUrl.Replace($_.ParentWebUrl, "")
+        $line.newId = $view.ID
 
-    $line = "" | Select-Object resource, oldId, newId
-    $line.resource = $_.DefaultView.ServerRelativeUrl.Replace($_.ParentWebUrl, "")
-    $line.newId = $_.DefaultView.ID
+        $resource = $resources | Where-Object resource -eq $line.resource
+        if ($resource -ne $null) {
+            $resource.newId = $line.newId
+        }       
+  
+    }
 
     $resource = $resources | Where-Object resource -eq $line.resource
     if ($resource -ne $null) {

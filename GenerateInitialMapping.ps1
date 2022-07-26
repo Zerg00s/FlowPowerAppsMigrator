@@ -25,10 +25,12 @@ $lists | ForEach-Object {
     $line.oldId = $_.ID
     $resources += $line
 
-    $line = "" | Select-Object resource, oldId, newId
-    $line.resource = $_.DefaultView.ServerRelativeUrl.Replace($_.ParentWebUrl, "")
-    $line.oldId = $_.DefaultView.ID
-    $resources += $line
+    foreach ($view in $_.Views) {
+        $line = "" | Select-Object resource, oldId, newId
+        $line.resource = $view.ServerRelativeUrl.Replace($_.ParentWebUrl, "")
+        $line.oldId = $view.ID
+        $resources += $line
+    }
 }
 
 if ($DestinationFolder) {
