@@ -140,6 +140,14 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 # Latest Updates
 
+### 3.6 Version 
+
+#### New features
+- Added an ability to migrate flows that refer to the List and Library views. This was done to address the issue [List Views not Migrated](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/22) submitted by [Juistin](https://github.com/C2C-Justin)
+
+#### Known issues
+- SharePoint list forms customized with Power Apps are no longer migrated by this tool. There is an issue I am still working on.
+
 ### 3.5 Version 
 
 #### New features
