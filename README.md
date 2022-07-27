@@ -181,3 +181,12 @@ New features added:
 New feature added:
 
 - added support for solution migration. Thanks to [Mark Doria](https://www.linkedin.com/in/mark-doria/) for helping with this feature.
+
+
+## Support this project 
+I like coffee and consume lots of it while coding. If you want to support me, you can click on the "buy me a coffee" button:
+
+<br>
+<p align='center'>
+   <a href="https://www.buymeacoffee.com/DenisMolodtsov" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+</p>  
