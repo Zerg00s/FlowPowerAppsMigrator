@@ -22,12 +22,12 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 
 <img style="padding-left:50px" src="MISC/IMG/UnzippedPackage.png">
 
-## Migratable artifacts
+## Migrate-able artifacts
 
 | Artifact      | Support |
 | ----------- | ----------- |
 | Standalone Canvas Power Apps | ✔       |
-| Customized SharePoint List Forms Canvas apps | ✔ ⚠️  As of March 2022 this feature no longer works. Working on a fix     |
+| Customized SharePoint List Forms Canvas apps | ✔ This works again since September 2022   |
 | Canvas Power Apps that trigger Flows  | ✔ (flows are also migrated)       |
 | Standalone Cloud Flows   | ✔        |
 | Standalone Desktop Flows   | ❌        |
@@ -38,9 +38,9 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 | Modern JSON List customizations  | ✔        |
 | SharePoint data   | ❌       |
 | Content Types   | ✔ (migrated automatically)     |
-| Lookup fields   | ❌        |
-| Datasources located in a single site  | ✔        |
-| Datasources located in multiple sites and subsites   | ❌        |
+| Lookup fields   | ⚠️ (migrated only if you migrate the lookup list too)        |
+| Data Sources located in a single site  | ✔        |
+| Data Sources located in multiple sites and sub-sites   | ❌        |
 
 # Convert flows, apps and solutions
 
@@ -139,6 +139,17 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 
 # Latest Updates
+
+### 3.7 Version - 2022-09-01
+
+#### New features
+- SharePoint list forms customized with Power Apps are now migrated by this tool. Credits to [kvadratnymedved](https://github.com/kvadratnymedved) and [amariak](https://github.com/amariak) for providing a solution. 🙏
+
+#### Known issues
+- Migrated lists with custom content types end up with extra content type that should be deleted manually.
+- Migrated lists might need fields to be added to the content type or a form.
+- Flow & Apps Migrator might cache your user credentials and not prompt you for them again. In this case, you will need to to follow the steps [described in this issue](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/25)
+
 
 ### 3.6 Version 
 
