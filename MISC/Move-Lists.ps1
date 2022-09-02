@@ -64,7 +64,21 @@ if ($MigrationType -eq "Export") {
         Get-pnpProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists -Force -WarningAction Ignore
     }
 
-    ((Get-Content -path Lists.xml -Raw) -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml
+    # Remove all Property Bag entries from the lists. Begin
+    ((Get-Content -path Lists.xml -Raw) -replace '<\?xml version="1.0"\?>','' -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml
+    
+    $xml = [xml](Get-Content Lists.xml)
+    $propertyBagEntries = $xml.GetElementsByTagName('pnp:PropertyBagEntries')
+    if($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {
+       for ($i = $propertyBagEntries.Count -1; $i -gt -1 ; $i--) {
+        $propertyBagEntries[$i].ParentNode.RemoveChild($propertyBagEntries[$i])
+       }      
+    }
+
+    $xml.Save('Lists.xml')
+    "<?xml version=""1.0""?>`n" + (Get-Content "Lists.xml" -Raw) | Set-Content "Lists.xml"
+    # Remove all Property Bag entries from the lists. End
+
     foreach ($title in $titles) {
         # Get the latest list item form layout. Footer, Header and the Body:
         $list = Get-PnPList $title -Includes ContentTypes
