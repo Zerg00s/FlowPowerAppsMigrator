@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.5&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.7&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -136,6 +136,30 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 - Convert Apps and Flows from `src` and saves them to 'dist'.
 
 ![image](https://user-images.githubusercontent.com/2797648/138599549-cef7b847-582e-4e91-8c75-a37a8e82a00d.png)
+
+# Migrating Power Apps SharePoint List Form
+
+SharePoint List forms customized with Power Apps can be migrated if you follow these steps:
+
+- Navigate to your SharePoint List
+- Click on one of the SharePoint list items
+- Click on ellipsis (3 dots) > Customize with Power Apps:
+![](MISC/IMG/CustomizeWithPowerApps.png)
+
+- Power apps Editor will open.
+- Click on File > See all versions
+![](MISC/IMG/SeeAllVersions.png)
+
+- Click Export package:
+![](MISC/IMG/ExportPackage.png)
+
+- Type your app name
+- Select "Create as new" under Import setup
+- Click Export
+
+![](MISC/IMG/ExportPackageProperties.png)
+- Place the exported package in the `\src` directory
+- Run `Migrate-Packages.bat` script
 
 
 # Latest Updates
