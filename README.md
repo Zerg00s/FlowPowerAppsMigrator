@@ -104,6 +104,8 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 # Preparing a deployment package for your Clients and Partners
 
+What if you created an app or a flow that you want your Client or Partner to also have? You probably want to package your SharePoint Lists along with the apps and flows in a single package. Then you want to hand over this package along with simple installation instructions. Guess what? There is a script that prepares this package automatically for you.
+
 `Prepare-Deployment-Package-for-Client.bat` script prepares a deployment package that you can share with your Clients or Partners. 
 
 ## On your end
@@ -132,7 +134,7 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 **Note:** `Convert-Packages.bat` will:
 
-- Deploy SharePoint lists and libraries (if you chose to do package them)
+- Deploy SharePoint lists and libraries (if you want to package them)
 - Convert Apps and Flows from `src` and saves them to 'dist'.
 
 ![image](https://user-images.githubusercontent.com/2797648/138599549-cef7b847-582e-4e91-8c75-a37a8e82a00d.png)
