@@ -37,7 +37,7 @@ Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChe
 
 $Migration = @{
     SOURCE_SITE_URL = "https://contoso.sharepoint.com/sites/Site_A"
-    MIGRATE_LISTS   = $true
+    MIGRATE_LISTS   = $true    
 }
 
 $Migration = Get-FormItemProperties `

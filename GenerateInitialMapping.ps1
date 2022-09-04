@@ -8,7 +8,15 @@ if ($null -eq $SOURCE_SITE_URL) {
 }
 
 Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the source site site" -ForegroundColor Cyan
-Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
+
+If($CLEAR_CREDENTIALS_CACHE){
+    Connect-PnPOnline -Url $SOURCE_SITE_URL -SPOManagementShell -ClearTokenCache -WarningAction Ignore
+}else{
+    Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
+}
+
+
+
 
 $lists = Get-PnPList -Includes Views, Fields, DefaultView
 $lists = $lists | Where-Object hidden -eq $false

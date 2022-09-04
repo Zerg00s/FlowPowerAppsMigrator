@@ -38,12 +38,13 @@ $Migration = @{
     SOURCE_SITE_URL = "https://contoso.sharepoint.com/sites/Site_A"
     TARGET_SITE_URL = "https://contoso.sharepoint.com/sites/Site_b"
     MIGRATE_LISTS   = $true
+    CLEAR_CREDENTIALS_CACHE = $false
 }
 
 $Migration = Get-FormItemProperties `
     -item $Migration `
     -dialogTitle "Enter source and target sites" `
-    -propertiesOrder @("SOURCE_SITE_URL", "TARGET_SITE_URL", "MIGRATE_LISTS") 
+    -propertiesOrder @("SOURCE_SITE_URL", "TARGET_SITE_URL", "MIGRATE_LISTS", "CLEAR_CREDENTIALS_CACHE") 
 
 $SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
 $TARGET_SITE_URL = $Migration.TARGET_SITE_URL
@@ -58,13 +59,30 @@ else {
 }
 $MIGRATE_LISTS = $Migration.MIGRATE_LISTS
 
+
+if ($Migration.CLEAR_CREDENTIALS_CACHE -like "true" -or 
+    $Migration.CLEAR_CREDENTIALS_CACHE -like "yes" -or
+    $Migration.CLEAR_CREDENTIALS_CACHE -like "1"
+) {
+    $Migration.CLEAR_CREDENTIALS_CACHE = $true
+}
+else {
+    $Migration.CLEAR_CREDENTIALS_CACHE = $false
+}
+$MIGRATE_LISTS = $Migration.CLEAR_CREDENTIALS_CACHE
+
 . .\GenerateInitialMapping.ps1
 if ($MIGRATE_LISTS) {
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Export -SourceSite $SOURCE_SITE_URL
 }
 
 Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the target site." -ForegroundColor Cyan
-Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+If($CLEAR_CREDENTIALS_CACHE){
+    Connect-PnPOnline -Url $TARGET_SITE_URL -SPOManagementShell -ClearTokenCache -WarningAction Ignore
+}else{
+    Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+}
+
 
 if ($MIGRATE_LISTS) {   
     Write-Host Applying Imported XML to $TARGET_SITE_URL -ForegroundColor Cyan

@@ -166,6 +166,19 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 # Latest Updates
 
+### 3.8 Version - 2022-09-04
+
+#### New features
+- Added ability to Clear Credentials cache (useful when your credentials pop-up opens and closes automatically, without prompting you to enter your credentials)
+
+#### Bug fixes
+- Fixed an issue with migrating between non-English SharePoint sites. 
+
+#### Known issues
+- Migrated lists with custom content types end up with extra content type that should be deleted manually.
+- Migrated lists might need fields to be added to the content type or a form.
+
+
 ### 3.7 Version - 2022-09-01
 
 #### New features

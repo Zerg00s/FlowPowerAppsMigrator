@@ -65,9 +65,11 @@ if ($MigrationType -eq "Export") {
     }
 
     # Remove all Property Bag entries from the lists. Begin
-    ((Get-Content -path Lists.xml -Raw) -replace '<\?xml version="1.0"\?>','' -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml
+    ((Get-Content -path Lists.xml -Raw -Encoding UTF8) -replace '<\?xml version="1.0"\?>','' -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml -Encoding UTF8
     
     $xml = [xml](Get-Content Lists.xml)
+
+
     $propertyBagEntries = $xml.GetElementsByTagName('pnp:PropertyBagEntries')
     if($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {
        for ($i = $propertyBagEntries.Count -1; $i -gt -1 ; $i--) {
@@ -76,7 +78,8 @@ if ($MigrationType -eq "Export") {
     }
 
     $xml.Save('Lists.xml')
-    "<?xml version=""1.0""?>`n" + (Get-Content "Lists.xml" -Raw) | Set-Content "Lists.xml"
+    "<?xml version=""1.0""?>`n" + (Get-Content "Lists.xml" -Raw -Encoding UTF8) | Set-Content "Lists.xml" -Encoding UTF8
+
     # Remove all Property Bag entries from the lists. End
 
     foreach ($title in $titles) {

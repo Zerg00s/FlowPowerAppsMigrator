@@ -603,7 +603,7 @@ function Get-FormItemProperties {
     
     
     $Form = New-Object System.Windows.Forms.Form
-    $Form.Height = 380
+    $Form.Height = 450
     $Form.Width = 530
     $Form.Text = $dialogTitle
     $Form.Topmost = $true
