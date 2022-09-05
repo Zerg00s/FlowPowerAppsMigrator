@@ -165,6 +165,16 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 
 # Latest Updates
+### 3.8.1 Version - 2022-09-04
+
+#### Bug fixes
+- Fixed an issue with lists not being migrated
+
+#### Known issues
+- Migrated lists with custom content types end up with extra content type that should be deleted manually.
+- Migrated lists might need fields to be added to the content type or a form.
+
+
 
 ### 3.8 Version - 2022-09-04
 

@@ -69,7 +69,7 @@ if ($Migration.CLEAR_CREDENTIALS_CACHE -like "true" -or
 else {
     $Migration.CLEAR_CREDENTIALS_CACHE = $false
 }
-$MIGRATE_LISTS = $Migration.CLEAR_CREDENTIALS_CACHE
+$CLEAR_CREDENTIALS_CACHE = $Migration.CLEAR_CREDENTIALS_CACHE
 
 . .\GenerateInitialMapping.ps1
 if ($MIGRATE_LISTS) {
