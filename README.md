@@ -171,7 +171,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - Added a check of the source and target site permissions. If the user does not have the required permissions, the app migrator will stop and display an error message.
 
 #### Known issues
-- Occasional error: `Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))`. This error is typically nothing to do with permissions. It is hard to diagnose, but one of the fixes is to delete a target site and rung the app migrator again.
+- Occasional error: [Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/34). This error is typically nothing to do with permissions. It is hard to diagnose, but one of the fixes is to delete a target site and rung the app migrator again.
 - Migrated lists with custom content types end up with extra content type that should be deleted manually, after migration.
 - Migrated lists might need fields to be added to the content type or a form.
 
