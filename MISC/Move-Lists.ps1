@@ -32,6 +32,32 @@ Get-ChildItem -Recurse | Unblock-File
 # Legacy PowerShell PnP Module is used because the new one has a critical bug
 Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
 
+
+try {
+    $lists = Get-PnPList
+}
+catch {
+    $errorSuggestion = "If you already have enough permissions, try running the script with CLEAR_CREDENTIALS_CACHE set to True"
+    if ($error[0].Exception.Message -match "(403)" -or $error[0].Exception.Message -match "unauthorized") {
+        if ($MigrationType -eq "Export") {
+            Write-Host "[Error] make sure you have FULL CONTROL at the source site $SourceSite" -ForegroundColor Yellow
+        }
+        elseif ($MigrationType -eq "Import") {
+            Write-Host "[Error] make sure you have FULL CONTROL at the target site $TargetSite" -ForegroundColor Yellow
+        }
+        else {
+            Write-Host "[Error] make sure you have FULL CONTROL at the source site $SourceSite and target site $TargetSite" -ForegroundColor Yellow
+        }
+        Write-Host $errorSuggestion -ForegroundColor Yellow
+        
+    }
+    else {
+        Write-Host $error[0].Exception.Message
+    }
+    throw 
+}
+
+
 if ($MigrationType -eq "Export") {
     Write-Host "Exporting lists and libraries..." -ForegroundColor Yellow
     Get-ChildItem *.xml | ForEach-Object { Remove-Item -Path $_.FullName }
@@ -58,23 +84,23 @@ if ($MigrationType -eq "Export") {
     } 
     
     if ($exportContentTypes) {
-        Get-pnpProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists, ContentTypes, Fields -Force -WarningAction Ignore 
+        Get-PnPProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists, ContentTypes, Fields -Force -WarningAction Ignore 
     }
     else {
-        Get-pnpProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists -Force -WarningAction Ignore
+        Get-PnPProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists -Force -WarningAction Ignore
     }
 
     # Remove all Property Bag entries from the lists. Begin
-    ((Get-Content -path Lists.xml -Raw -Encoding UTF8) -replace '<\?xml version="1.0"\?>','' -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml -Encoding UTF8
+    ((Get-Content -Path Lists.xml -Raw -Encoding UTF8) -replace '<\?xml version="1.0"\?>', '' -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml -Encoding UTF8
     
     $xml = [xml](Get-Content Lists.xml)
 
 
     $propertyBagEntries = $xml.GetElementsByTagName('pnp:PropertyBagEntries')
-    if($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {
-       for ($i = $propertyBagEntries.Count -1; $i -gt -1 ; $i--) {
-        $propertyBagEntries[$i].ParentNode.RemoveChild($propertyBagEntries[$i])
-       }      
+    if ($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {
+        for ($i = $propertyBagEntries.Count - 1; $i -gt -1 ; $i--) {
+            $propertyBagEntries[$i].ParentNode.RemoveChild($propertyBagEntries[$i])
+        }      
     }
 
     $xml.Save('Lists.xml')
@@ -92,7 +118,22 @@ if ($MigrationType -eq "Export") {
 
 if ($MigrationType -eq "Import") {
     Write-Host "Importing lists and libraries..." -ForegroundColor Yellow
-    Apply-PnPProvisioningTemplate -Path Lists.xml 
+
+    
+    try {
+        Apply-PnPProvisioningTemplate -Path Lists.xml 
+    }
+    catch {
+        if ($error[0].Exception.Message -match "(403)" -or $error[0].Exception.Message -match "unauthorized") {
+            Write-Host "⚠️  [Error] make sure you have full control at the target site $TargetSite" -ForegroundColor Yellow
+        }
+        else {
+            Write-Host $error[0].Exception.Message
+        }
+        throw 
+    }
+
+    
     $jsonFiles = Get-ChildItem *.json
     if ($jsonFiles) {
         $titles = $jsonFiles | ForEach-Object { "$($_.BaseName)" }

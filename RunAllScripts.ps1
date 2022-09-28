@@ -76,7 +76,7 @@ if ($MIGRATE_LISTS) {
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Export -SourceSite $SOURCE_SITE_URL
 }
 
-Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the target site." -ForegroundColor Cyan
+Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the target site $TARGET_SITE_URL." -ForegroundColor Cyan
 If($CLEAR_CREDENTIALS_CACHE){
     Connect-PnPOnline -Url $TARGET_SITE_URL -SPOManagementShell -ClearTokenCache -WarningAction Ignore
 }else{

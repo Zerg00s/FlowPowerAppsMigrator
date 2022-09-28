@@ -7,19 +7,32 @@ if ($null -eq $SOURCE_SITE_URL) {
     $SOURCE_SITE_URL = Read-Host "Enter the URL of the original (old) SharePoint site"
 }
 
-Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the source site site" -ForegroundColor Cyan
+Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the source site site $SOURCE_SITE_URL" -ForegroundColor Cyan
 
-If($CLEAR_CREDENTIALS_CACHE){
+If ($CLEAR_CREDENTIALS_CACHE) {
     Connect-PnPOnline -Url $SOURCE_SITE_URL -SPOManagementShell -ClearTokenCache -WarningAction Ignore
-}else{
+}
+else {
     Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
 }
 
+try {
+    $lists = Get-PnPList -Includes Views, Fields, DefaultView
+}
+catch {
+    if ($error[0].Exception.Message -match "(403)" -or $error[0].Exception.Message -match "unauthorized") {
+        
+        Write-Host "⚠️  [Error] make sure you have FULL CONTROL at the source site: $SOURCE_SITE_URL" -ForegroundColor Yellow
+        $errorSuggestion = "If you already have enough permissions, try running the script with CLEAR_CREDENTIALS_CACHE set to True"
+        Write-Host $errorSuggestion -ForegroundColor Yellow
+    }
+    else {
+        Write-Host Write-Host $error[0].Exception.Message
+    }
+    throw 
+}
 
-
-
-$lists = Get-PnPList -Includes Views, Fields, DefaultView
-$lists = $lists | Where-Object hidden -eq $false
+$lists = $lists | Where-Object hidden -EQ $false
 
 $resources = @()
 $line = "" | Select-Object resource, oldId, newId

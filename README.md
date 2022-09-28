@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.7&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.8.2&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -163,6 +163,17 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - Place the exported package in the `\src` directory
 - Run `Migrate-Packages.bat` script
 
+
+# Latest Updates
+### 3.8.2 Version - 2022-09-28
+
+#### Changes
+- Added a check of the source and target site permissions. If the user does not have the required permissions, the app migrator will stop and display an error message.
+
+#### Known issues
+- Occasional error: `Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))`. This error is typically nothing to do with permissions. It is hard to diagnose, but one of the fixes is to delete a target site and rung the app migrator again.
+- Migrated lists with custom content types end up with extra content type that should be deleted manually, after migration.
+- Migrated lists might need fields to be added to the content type or a form.
 
 # Latest Updates
 ### 3.8.1 Version - 2022-09-04
