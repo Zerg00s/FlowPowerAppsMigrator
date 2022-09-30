@@ -22,7 +22,7 @@ try {
 catch {
     if ($error[0].Exception.Message -match "(403)" -or $error[0].Exception.Message -match "unauthorized") {
         
-        Write-Host "⚠️  [Error] make sure you have FULL CONTROL at the source site: $SOURCE_SITE_URL" -ForegroundColor Yellow
+        Write-Host "[Error] make sure you have FULL CONTROL at the source site: $SOURCE_SITE_URL" -ForegroundColor Yellow
         $errorSuggestion = "If you already have enough permissions, try running the script with CLEAR_CREDENTIALS_CACHE set to True"
         Write-Host $errorSuggestion -ForegroundColor Yellow
     }

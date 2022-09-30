@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.8.2&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.8.3&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -35,6 +35,7 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 | Solutions containing multiple canvas apps and flows  | ✔        |
 | SharePoint Lists   | ✔        |
 | SharePoint Libraries   | ✔        |
+| Cross-Language Lists migration    | ❌ Both source and target sites must be created with the same language. Otherwise, you'll get the `0x80070005 (E_ACCESSDENIED)` error   |
 | Modern JSON List customizations  | ✔        |
 | SharePoint data   | ❌       |
 | Content Types   | ✔ (migrated automatically)     |
@@ -165,6 +166,16 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 
 # Latest Updates
+### 3.8.3 Version - 2022-09-30
+
+#### Changes
+- Added a check for the `E_ACCESSDENIED` error.
+
+#### Known issues
+- If the source and the target sites were created using different languages, then the app migrator will fail with the [Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/34) error. 
+- Migrated lists with custom content types end up with an extra content type that should be deleted manually, after migration.
+- Migrated lists might need fields to be added to the content type or a form. In some cases, migrated lists show only Title in the edit form.
+
 ### 3.8.2 Version - 2022-09-28
 
 #### Changes

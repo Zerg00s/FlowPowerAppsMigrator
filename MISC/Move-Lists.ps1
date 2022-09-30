@@ -124,8 +124,12 @@ if ($MigrationType -eq "Import") {
         Apply-PnPProvisioningTemplate -Path Lists.xml 
     }
     catch {
+        Write-Host "[Error] " -NoNewline -ForegroundColor Red
         if ($error[0].Exception.Message -match "(403)" -or $error[0].Exception.Message -match "unauthorized") {
-            Write-Host "⚠️  [Error] make sure you have full control at the target site $TargetSite" -ForegroundColor Yellow
+            Write-Host "Make sure you have full control at the target site $TargetSite" -ForegroundColor Yellow
+        }
+        elseif ($error[0].Exception.Message -match "E_ACCESSDENIED") {
+            Write-Host "Make sure that both target site and the source sites created with the same language. Cross-language list migration is not supported." -ForegroundColor Cyan
         }
         else {
             Write-Host $error[0].Exception.Message
