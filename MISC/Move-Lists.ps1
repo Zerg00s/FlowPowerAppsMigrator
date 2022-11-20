@@ -99,7 +99,7 @@ if ($MigrationType -eq "Export") {
     $propertyBagEntries = $xml.GetElementsByTagName('pnp:PropertyBagEntries')
     if ($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {
         for ($i = $propertyBagEntries.Count - 1; $i -gt -1 ; $i--) {
-            $propertyBagEntries[$i].ParentNode.RemoveChild($propertyBagEntries[$i])
+            $supress = $propertyBagEntries[$i].ParentNode.RemoveChild($propertyBagEntries[$i])
         }      
     }
 
