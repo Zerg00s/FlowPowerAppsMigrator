@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.8.3&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.8.4&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -166,6 +166,13 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 ![](MISC/IMG/ExportPackageProperties.png)
 - Place the exported package in the `\src` directory
 - Run `Migrate-Packages.bat` script
+
+
+# Latest Updates
+### 3.8.4 Version - 2023-02-03
+
+#### Changes
+- Fixed the issue caused by lists having multiple personal views.
 
 
 # Latest Updates

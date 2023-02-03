@@ -20,9 +20,18 @@ $lists | ForEach-Object {
     $line = "" | Select-Object resource, oldId, newId
     $line.resource = $_.RootFolder.ServerRelativeUrl.Replace($_.ParentWebUrl, "")
     $line.newId = $_.ID
+    # There could be more than one resource: 
     $resource = $resources | Where-Object resource -eq $line.resource
     if ($resource -ne $null) {
-        $resource.newId = $line.newId
+        if(@($resource).Count -gt 1){
+            Write-Host "More than one resource found for $line.resource" -ForegroundColor Yellow
+            foreach($r in $resource){
+                $r.newId = $line.newId
+            }
+
+        }else{
+            $resource.newId = $line.newId
+        }        
     }
     foreach ($view in $_.Views) {
         $line = "" | Select-Object resource, oldId, newId
@@ -31,14 +40,30 @@ $lists | ForEach-Object {
 
         $resource = $resources | Where-Object resource -eq $line.resource
         if ($resource -ne $null) {
-            $resource.newId = $line.newId
-        }       
+            if(@($resource).Count -gt 1){
+                Write-Host "More than one resource found for $line.resource" -ForegroundColor Yellow
+                foreach($r in $resource){
+                    $r.newId = $line.newId
+                }
+    
+            }else{
+                $resource.newId = $line.newId
+            }        
+        }     
   
     }
 
     $resource = $resources | Where-Object resource -eq $line.resource
     if ($resource -ne $null) {
-        $resource.newId = $line.newId
+        if(@($resource).Count -gt 1){
+            Write-Host "More than one resource found for $line.resource" -ForegroundColor Yellow
+            foreach($r in $resource){
+                $r.newId = $line.newId
+            }
+
+        }else{
+            $resource.newId = $line.newId
+        }        
     }
 }
 
