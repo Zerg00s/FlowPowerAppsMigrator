@@ -6,4 +6,5 @@ settings.json
 /package
 /FlowPowerAppsMigrator
 Lists.xml
+traceoutput.txt
 *.json

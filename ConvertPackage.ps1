@@ -8,6 +8,11 @@ $packages = Get-ChildItem -Path .\src -Filter "*.zip"
 
 $resources = Import-Csv  -Path .\resourceMapping.csv
 
+# Create dist folder if it does not exist
+if (-not (Test-Path .\dist)) {
+    $suppress = New-Item -ItemType Directory -Path .\dist
+}
+
 for ($k = 0; $k -lt $packages.count; $k++) {
     $package = $packages[$k]
     $DestinationFolder = $CurrentPath + "dist\" + $package.BaseName
@@ -85,5 +90,7 @@ for ($k = 0; $k -lt $packages.count; $k++) {
     Remove-Item $DestinationFolder -Force -Recurse -ErrorAction SilentlyContinue
 }
 
-Write-Host All Apps were converted -ForegroundColor Green
+Write-Host \src packages were converted and saved to the \dist folder -ForegroundColor Green
+
+
 Invoke-Item .\dist

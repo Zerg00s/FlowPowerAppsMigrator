@@ -26,12 +26,15 @@ Write-host
 Write-host "-----------------------------------------------------------------------------"
 Write-host   
 
+Set-PnPTraceLog -On -LogFile traceoutput.txt -Level Debug
 
 Set-Location $Path
 . .\MISC\PS-Forms.ps1
 
 Get-ChildItem -Recurse | Unblock-File
-# Legacy PowerShell PnP Module is used because the new one has a critical bug
+# Legacy PowerShell PnP Module is used because 
+# the new one (PnP.PowerShell) requires Tenant Admin consent for the PnP Azure App Registration
+# and it's not possible to use it in the context of a non-admin user
 Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
 
 $Migration = @{
@@ -53,8 +56,7 @@ if ($Migration.MIGRATE_LISTS -like "true" -or
     $Migration.MIGRATE_LISTS -like "1"
 ) {
     $Migration.MIGRATE_LISTS = $true
-}
-else {
+}else {
     $Migration.MIGRATE_LISTS = $false
 }
 $MIGRATE_LISTS = $Migration.MIGRATE_LISTS
@@ -65,8 +67,7 @@ if ($Migration.CLEAR_CREDENTIALS_CACHE -like "true" -or
     $Migration.CLEAR_CREDENTIALS_CACHE -like "1"
 ) {
     $Migration.CLEAR_CREDENTIALS_CACHE = $true
-}
-else {
+}else {
     $Migration.CLEAR_CREDENTIALS_CACHE = $false
 }
 $CLEAR_CREDENTIALS_CACHE = $Migration.CLEAR_CREDENTIALS_CACHE
@@ -83,9 +84,16 @@ If($CLEAR_CREDENTIALS_CACHE){
     Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
 }
 
+# Verify the connection
+$Response = Invoke-PnPSPRestMethod -Url "$TARGET_SITE_URL/_api/web/currentUser"
+Write-Host 
+Write-Host Connected to the target site -ForegroundColor Green 
+Write-Host "`tSite: $TARGET_SITE_URL" -ForegroundColor Yellow 
+Write-Host "`tUser: $($Response.Title) ($($Response.Email))" -ForegroundColor Yellow 
+
 
 if ($MIGRATE_LISTS) {   
-    Write-Host Applying Imported XML to $TARGET_SITE_URL -ForegroundColor Cyan
+    Write-Host Applying PnP Template to $TARGET_SITE_URL -ForegroundColor Cyan
     . .\MISC\Move-Lists.ps1 -Path $Path -MigrationType Import -TargetSite $TARGET_SITE_URL
 }
 

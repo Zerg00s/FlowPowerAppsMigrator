@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.8.4&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.8.5&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -167,6 +167,12 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - Place the exported package in the `\src` directory
 - Run `Migrate-Packages.bat` script
 
+
+# Latest Updates
+### 3.8.5 Version - 2023-02-20
+
+#### Changes
+- Users connected to the source and target sites are now displayed in the console for easier troubleshooting.
 
 # Latest Updates
 ### 3.8.4 Version - 2023-02-03
