@@ -202,6 +202,9 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - Migrated lists with custom content types end up with extra content type that should be deleted manually, after migration.
 - Migrated lists might need fields to be added to the content type or a form.
 
+
+# 👉 [Troubleshooting Guide](https://github.com/Zerg00s/FlowPowerAppsMigrator/wiki/How-to-deal-with-the-%22Make-sure-you-have-FULL-CONTROL-at-the-source-site%22-Issue)
+
 # Latest Updates
 ### 3.8.1 Version - 2022-09-04
 
