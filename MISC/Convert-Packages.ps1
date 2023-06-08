@@ -41,7 +41,12 @@ $Migration = @{
 $Migration = Get-FormItemProperties -item $Migration -dialogTitle "Enter target site" -propertiesOrder @("TARGET_SITE_URL") 
 $TARGET_SITE_URL = $Migration.TARGET_SITE_URL
 
-Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+if($USE_APP_ONLY_AUTHENTICATION){
+    Connect-PnPOnline -Url $TARGET_SITE_URL -ClientId $TARGET_SITE_APP_ID -ClientSecret $TARGET_SITE_APP_SECRET -WarningAction Ignore
+}else{
+    Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+}
+
 $xmlFiles = Get-ChildItem *.xml
 if ($xmlFiles.Count -ne 0) {
     Write-Host Convert-Packages 1: $TARGET_SITE_URL Import of XML -ForegroundColor Yellow

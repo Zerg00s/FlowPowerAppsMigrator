@@ -7,7 +7,13 @@ if ($null -eq $TARGET_SITE_URL) {
     $TARGET_SITE_URL = Read-Host "Enter the URL of the destination SharePoint site"
 }
 if($DoNotReconnect.IsPresent -eq $false){
-    Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+    if($USE_APP_ONLY_AUTHENTICATION){
+        $TargetAppId = "0789bce2-cd45-4668-a20e-91e730c70861"
+        $TargetAppSecret = "oRYj4s+2zBosk04X+AS+SQGKha/2BS4iek0mfd2PHsg="
+        Connect-PnPOnline -Url $TARGET_SITE_URL -ClientId $TargetAppId -ClientSecret $TargetAppSecret -WarningAction Ignore
+    }else{
+        Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+    }    
 }
 
 $lists = Get-PnPList -Includes Views, Fields, DefaultView

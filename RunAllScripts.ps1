@@ -26,7 +26,7 @@ Write-host
 Write-host "-----------------------------------------------------------------------------"
 Write-host   
 
-Set-PnPTraceLog -On -LogFile traceoutput.txt -Level Debug
+
 
 Set-Location $Path
 . .\MISC\PS-Forms.ps1
@@ -37,9 +37,14 @@ Get-ChildItem -Recurse | Unblock-File
 # and it's not possible to use it in the context of a non-admin user
 Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
 
+Set-PnPTraceLog -On -LogFile traceoutput.txt -Level Debug
+
+# Read migrator-config.json
+$MigratorConfig = Get-Content -Raw -Path "$Path\config\migrator-config.json" | ConvertFrom-Json
+
 $Migration = @{
-    SOURCE_SITE_URL = "https://contoso.sharepoint.com/sites/Site_A"
-    TARGET_SITE_URL = "https://contoso.sharepoint.com/sites/Site_b"
+    SOURCE_SITE_URL = $MigratorConfig.'source-site-url'
+    TARGET_SITE_URL = $MigratorConfig.'source-site-url'    
     MIGRATE_LISTS   = $true
     CLEAR_CREDENTIALS_CACHE = $false
 }
@@ -51,6 +56,31 @@ $Migration = Get-FormItemProperties `
 
 $SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
 $TARGET_SITE_URL = $Migration.TARGET_SITE_URL
+$SOURCE_SITE_APP_ID = $MigratorConfig.'source-site-app-id'
+$SOURCE_SITE_APP_SECRET = $MigratorConfig.'source-site-app-secret'
+$TARGET_SITE_APP_ID = $MigratorConfig.'target-site-app-id'
+$TARGET_SITE_APP_SECRET = $MigratorConfig.'target-site-app-secret'
+
+$areAllEmpty = [string]::IsNullOrEmpty($SOURCE_SITE_APP_ID) -and 
+    [string]::IsNullOrEmpty($SOURCE_SITE_APP_SECRET) -and
+    [string]::IsNullOrEmpty($TARGET_SITE_APP_ID) -and
+    [string]::IsNullOrEmpty($TARGET_SITE_APP_SECRET)
+
+$areAllFilled = (![string]::IsNullOrEmpty($SOURCE_SITE_APP_ID)) -and
+    (![string]::IsNullOrEmpty($SOURCE_SITE_APP_SECRET)) -and
+    (![string]::IsNullOrEmpty($TARGET_SITE_APP_ID)) -and
+    (![string]::IsNullOrEmpty($TARGET_SITE_APP_SECRET))
+
+if ($areAllEmpty -or $areAllFilled) {
+    Write-Host "\config\migrator-config.json file validation passed" -ForegroundColor Green
+} else {
+    Write-Host "Validation failed: Please verify and ensure that either all properties are set or all variables are empty in \config\migrator-config.json" -ForegroundColor Red
+}
+
+if($areAllFilled){
+    $USE_APP_ONLY_AUTHENTICATION = $true
+}
+
 if ($Migration.MIGRATE_LISTS -like "true" -or 
     $Migration.MIGRATE_LISTS -like "yes" -or
     $Migration.MIGRATE_LISTS -like "1"
@@ -78,18 +108,21 @@ if ($MIGRATE_LISTS) {
 }
 
 Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the target site $TARGET_SITE_URL." -ForegroundColor Cyan
-If($CLEAR_CREDENTIALS_CACHE){
+if($USE_APP_ONLY_AUTHENTICATION){
+    Connect-PnPOnline -Url $TARGET_SITE_URL -ClientId $TARGET_SITE_APP_ID -ClientSecret $TARGET_SITE_APP_SECRET -WarningAction Ignore
+}
+elseIf($CLEAR_CREDENTIALS_CACHE){
     Connect-PnPOnline -Url $TARGET_SITE_URL -SPOManagementShell -ClearTokenCache -WarningAction Ignore
-}else{
+}else{    
     Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
 }
 
 # Verify the connection
-$Response = Invoke-PnPSPRestMethod -Url "$TARGET_SITE_URL/_api/web/currentUser"
+# $Response = Invoke-PnPSPRestMethod -Url "$TARGET_SITE_URL/_api/web/currentUser"
 Write-Host 
 Write-Host Connected to the target site -ForegroundColor Green 
 Write-Host "`tSite: $TARGET_SITE_URL" -ForegroundColor Yellow 
-Write-Host "`tUser: $($Response.Title) ($($Response.Email))" -ForegroundColor Yellow 
+# Write-Host "`tUser: $($Response.Title) ($($Response.Email))" -ForegroundColor Yellow 
 
 
 if ($MIGRATE_LISTS) {   

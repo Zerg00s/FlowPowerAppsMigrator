@@ -35,8 +35,11 @@ Get-ChildItem -Recurse | Unblock-File
 # Legacy PowerShell PnP Module is used because the new one has a critical bug
 Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
 
+# Read migrator-config.json
+$MigratorConfig = Get-Content -Raw -Path "$Path\config\migrator-config.json" | ConvertFrom-Json
+
 $Migration = @{
-    SOURCE_SITE_URL = "https://contoso.sharepoint.com/sites/Site_A"
+    SOURCE_SITE_URL =  $MigratorConfig.'source-site-url'
     MIGRATE_LISTS   = $true    
 }
 
@@ -44,6 +47,26 @@ $Migration = Get-FormItemProperties `
     -item $Migration `
     -dialogTitle "Enter source site URL" `
     -propertiesOrder @("SOURCE_SITE_URL", "MIGRATE_LISTS") 
+
+$SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
+$SOURCE_SITE_APP_ID = $MigratorConfig.'source-site-app-id'
+$SOURCE_SITE_APP_SECRET = $MigratorConfig.'source-site-app-secret'
+
+$areAllEmpty = [string]::IsNullOrEmpty($SOURCE_SITE_APP_ID) -and 
+    [string]::IsNullOrEmpty($SOURCE_SITE_APP_SECRET)
+
+$areAllFilled = (![string]::IsNullOrEmpty($SOURCE_SITE_APP_ID)) -and
+    (![string]::IsNullOrEmpty($SOURCE_SITE_APP_SECRET))
+
+if ($areAllEmpty -or $areAllFilled) {
+    Write-Host "\config\migrator-config.json file validation passed" -ForegroundColor Green
+} else {
+    Write-Host "Validation failed: Please verify and ensure that either all properties are set or all variables are empty in \config\migrator-config.json" -ForegroundColor Red
+}
+
+if($areAllFilled){
+    $USE_APP_ONLY_AUTHENTICATION = $true
+}
 
 $SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
 if ($Migration.MIGRATE_LISTS -like "true" -or 
@@ -68,6 +91,8 @@ if ($MIGRATE_LISTS) {
 if ((Test-Path -Path "package\MISC") -eq $false) {
     New-Item -ItemType Directory -Force -Path "package\src" | Out-Null
     New-Item -ItemType Directory -Force -Path "package\MISC" | Out-Null
+    New-Item -ItemType Directory -Force -Path "package\config" | Out-Null
+    Copy-Item -Path "MISC\migrator-config.json" -Destination "package\config" -Recurse
     Copy-Item -Path "MISC\SharePointPnPPowerShellOnline" -Destination "package\MISC" -Recurse
     Copy-Item -Path "MISC\PS-Forms.ps1" -Destination "package\MISC"
     Copy-Item -Path "MISC\Move-Lists.ps1" -Destination "package\MISC"

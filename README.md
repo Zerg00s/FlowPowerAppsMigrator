@@ -169,6 +169,27 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 
 # Latest Updates
+### 3.9.0 Version - 2023-06-07
+
+#### Changes
+- Added an ability to run migrations using SharePoint-only App ID and App Secret. Use the `config\migrator-config.json` file to do it:
+
+```
+{
+    "source-site-url": "",
+    "target-site-url": "",
+    "source-site-app-id":"",
+    "source-site-app-secret":"",
+    "target-site-app-id":"",
+    "target-site-app-secret":""
+}
+```
+
+#### Known issues
+- If the source and the target sites were created using different languages, then the app migrator will fail with the [Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/34) error. 
+- Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
+- Migrated lists might need fields to be added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
+
 ### 3.8.6 Version - 2023-05-10
 
 #### Changes

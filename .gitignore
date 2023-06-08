@@ -7,4 +7,4 @@ settings.json
 /FlowPowerAppsMigrator
 Lists.xml
 traceoutput.txt
-*.json
+/*.json

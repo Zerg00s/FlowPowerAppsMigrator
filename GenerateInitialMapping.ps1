@@ -9,11 +9,16 @@ if ($null -eq $SOURCE_SITE_URL) {
 
 Write-Host "[Attention] Look for a login popup in a separate window. Please, log in to the source site site $SOURCE_SITE_URL" -ForegroundColor Cyan
 
-If ($CLEAR_CREDENTIALS_CACHE) {
+if($USE_APP_ONLY_AUTHENTICATION){
+    Connect-PnPOnline -Url $SOURCE_SITE_URL -ClientId $SOURCE_SITE_APP_ID -ClientSecret $SOURCE_SITE_APP_SECRET -WarningAction Ignore
+}elseIf ($CLEAR_CREDENTIALS_CACHE) {
     Connect-PnPOnline -Url $SOURCE_SITE_URL -SPOManagementShell -ClearTokenCache -WarningAction Ignore
 }
 else {
-    Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
+    $appId = "0789bce2-cd45-4668-a20e-91e730c70861"
+    $appSecret = "oRYj4s+2zBosk04X+AS+SQGKha/2BS4iek0mfd2PHsg="
+    Connect-PnPOnline -Url $SOURCE_SITE_URL -ClientId $appId -ClientSecret $appSecret -WarningAction Ignore
+    # Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
 }
 
 try {

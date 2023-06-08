@@ -1,4 +1,21 @@
-﻿Add-Type -AssemblyName System.IO.Compression.FileSystem
+﻿# This code is used to convert packages in the \src folder and save them to the \dist folder. 
+# It first cleans any previously generated packages. It then gets a list of packages 
+# from the \src folder with the .zip extension. It imports a CSV file containing 
+# resource mapping information, and creates a dist folder if it does not exist. 
+
+# It then iterates through each package, extracting it to a destination folder 
+# and replacing any old IDs with new ones from the resource mapping file. 
+# If an MSAPP package is found, it extracts that too and replaces any old IDs 
+# with new ones from the resource mapping file. It then creates a new zip file 
+# for each package, either using tar or System.IO.Compression.ZipFile depending 
+# on whether or not it is a solution package, and saves it to the \dist folder. 
+
+# Finally, it prints out a message that all packages have been converted and 
+# saved to the \dist folder, and invokes 
+# this directory in Windows Explorer so that its contents can be viewed.
+
+
+Add-Type -AssemblyName System.IO.Compression.FileSystem
 $CurrentPath = (Get-Location).Path + "\"
 
 # Clean previously generated packages
