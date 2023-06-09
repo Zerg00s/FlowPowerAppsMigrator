@@ -44,7 +44,7 @@ $MigratorConfig = Get-Content -Raw -Path "$Path\config\migrator-config.json" | C
 
 $Migration = @{
     SOURCE_SITE_URL = $MigratorConfig.'source-site-url'
-    TARGET_SITE_URL = $MigratorConfig.'source-site-url'    
+    TARGET_SITE_URL = $MigratorConfig.'target-site-url'    
     MIGRATE_LISTS   = $true
     CLEAR_CREDENTIALS_CACHE = $false
 }

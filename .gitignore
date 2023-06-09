@@ -8,3 +8,4 @@ settings.json
 Lists.xml
 traceoutput.txt
 /*.json
+config/migrator-config.json

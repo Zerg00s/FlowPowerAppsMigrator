@@ -15,10 +15,7 @@ if($USE_APP_ONLY_AUTHENTICATION){
     Connect-PnPOnline -Url $SOURCE_SITE_URL -SPOManagementShell -ClearTokenCache -WarningAction Ignore
 }
 else {
-    $appId = "0789bce2-cd45-4668-a20e-91e730c70861"
-    $appSecret = "oRYj4s+2zBosk04X+AS+SQGKha/2BS4iek0mfd2PHsg="
-    Connect-PnPOnline -Url $SOURCE_SITE_URL -ClientId $appId -ClientSecret $appSecret -WarningAction Ignore
-    # Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
+    Connect-PnPOnline -Url $SOURCE_SITE_URL -UseWebLogin -WarningAction Ignore
 }
 
 try {
