@@ -33,6 +33,21 @@ Get-ChildItem -Recurse | Unblock-File
 Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
 
 
+function Remove-SiteFieldFromXml {
+    param (
+        [Parameter(Mandatory=$true)]
+        [string] $fileName,
+
+        [Parameter(Mandatory=$true)]
+        [string] $fieldName
+    )
+
+    $fileContent = Get-Content $fileName
+    $pattern = "<Field .*Name=`"$fieldName`".*\/>"
+    $updatedContent = $fileContent -replace $pattern, ""
+    Set-Content -Path $fileName -Value $updatedContent
+}
+
 try {
     $lists = Get-PnPList
 }
@@ -81,7 +96,7 @@ if ($MigrationType -eq "Export") {
                 $exportContentTypes = $true;
             }
         }
-    } 
+    }
     
     if ($exportContentTypes) {
         Get-PnPProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists, ContentTypes, Fields -Force -WarningAction Ignore 
@@ -93,21 +108,23 @@ if ($MigrationType -eq "Export") {
     # Remove all Property Bag entries from the lists. Begin
     ((Get-Content -Path Lists.xml -Raw -Encoding UTF8) -replace '<\?xml version="1.0"\?>', '' -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml -Encoding UTF8
     
+    # Removing Site fields that cause the Exception from HRESULT: 0x80070005 (E_ACCESSDENIED)
+    Remove-SiteFieldFromXml -fileName "Lists.xml" -fieldName "TriggerFlowInfo"
+    Remove-SiteFieldFromXml -fileName "Lists.xml" -fieldName "IsolatedDomain"
+    
     $xml = [xml](Get-Content Lists.xml)
-
 
     $propertyBagEntries = $xml.GetElementsByTagName('pnp:PropertyBagEntries')
     if ($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {
         for ($i = $propertyBagEntries.Count - 1; $i -gt -1 ; $i--) {
             $supress = $propertyBagEntries[$i].ParentNode.RemoveChild($propertyBagEntries[$i])
-        }      
+        }
     }
 
     $xml.Save('Lists.xml')
     "<?xml version=""1.0""?>`n" + (Get-Content "Lists.xml" -Raw -Encoding UTF8) | Set-Content "Lists.xml" -Encoding UTF8
 
     # Remove all Property Bag entries from the lists. End
-
     foreach ($title in $titles) {
         # Get the latest list item form layout. Footer, Header and the Body:
         $list = Get-PnPList $title -Includes ContentTypes
@@ -118,7 +135,6 @@ if ($MigrationType -eq "Export") {
 
 if ($MigrationType -eq "Import") {
     Write-Host "Importing lists and libraries..." -ForegroundColor Yellow
-
     
     try {
         Apply-PnPProvisioningTemplate -Path Lists.xml 
@@ -137,7 +153,6 @@ if ($MigrationType -eq "Import") {
         throw 
     }
 
-    
     $jsonFiles = Get-ChildItem *.json
     if ($jsonFiles) {
         $titles = $jsonFiles | ForEach-Object { "$($_.BaseName)" }
