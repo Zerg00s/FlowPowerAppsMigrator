@@ -8,9 +8,7 @@ if ($null -eq $TARGET_SITE_URL) {
 }
 if($DoNotReconnect.IsPresent -eq $false){
     if($USE_APP_ONLY_AUTHENTICATION){
-        $TargetAppId = "0789bce2-cd45-4668-a20e-91e730c70861"
-        $TargetAppSecret = "oRYj4s+2zBosk04X+AS+SQGKha/2BS4iek0mfd2PHsg="
-        Connect-PnPOnline -Url $TARGET_SITE_URL -ClientId $TargetAppId -ClientSecret $TargetAppSecret -WarningAction Ignore
+        Connect-PnPOnline -Url $TARGET_SITE_URL -ClientId $TARGET_SITE_APP_ID -ClientSecret $TARGET_SITE_APP_SECRET -WarningAction Ignore
     }else{
         Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
     }    

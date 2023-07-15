@@ -48,6 +48,7 @@ $Migration = Get-FormItemProperties `
     -dialogTitle "Enter source site URL" `
     -propertiesOrder @("SOURCE_SITE_URL", "MIGRATE_LISTS") 
 
+$SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL.TrimEnd('/')
 $SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
 $SOURCE_SITE_APP_ID = $MigratorConfig.'source-site-app-id'
 $SOURCE_SITE_APP_SECRET = $MigratorConfig.'source-site-app-secret'

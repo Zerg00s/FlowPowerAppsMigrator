@@ -32,22 +32,6 @@ Get-ChildItem -Recurse | Unblock-File
 # Legacy PowerShell PnP Module is used because the new one has a critical bug
 Import-Module (Get-ChildItem -Recurse -Filter "*.psd1").FullName -DisableNameChecking
 
-
-function Remove-SiteFieldFromXml {
-    param (
-        [Parameter(Mandatory=$true)]
-        [string] $fileName,
-
-        [Parameter(Mandatory=$true)]
-        [string] $fieldName
-    )
-
-    $fileContent = Get-Content $fileName
-    $pattern = "<Field .*Name=`"$fieldName`".*\/>"
-    $updatedContent = $fileContent -replace $pattern, ""
-    Set-Content -Path $fileName -Value $updatedContent
-}
-
 try {
     $lists = Get-PnPList
 }
@@ -106,13 +90,45 @@ if ($MigrationType -eq "Export") {
     }
 
     # Remove all Property Bag entries from the lists. Begin
-    ((Get-Content -Path Lists.xml -Raw -Encoding UTF8) -replace '<\?xml version="1.0"\?>', '' -replace 'RootSite', 'Web') | Set-Content -Path Lists.xml -Encoding UTF8
-    
+    ((Get-Content -Path Lists.xml -Raw -Encoding UTF8) -replace '<\?xml version="1.0"\?>', '' -replace 'RootSite', 'Web' -replace '(?<=\{[^}]*)\&(?=[^}]*\})', '&amp;') | Set-Content -Path Lists.xml -Encoding UTF8
+
     # Removing Site fields that cause the Exception from HRESULT: 0x80070005 (E_ACCESSDENIED)
-    Remove-SiteFieldFromXml -fileName "Lists.xml" -fieldName "TriggerFlowInfo"
-    Remove-SiteFieldFromXml -fileName "Lists.xml" -fieldName "IsolatedDomain"
-    
+
+
+    # Load the XML from file
     $xml = [xml](Get-Content Lists.xml)
+
+    # Select all hidden nodes based on the Group attribute
+    $hiddenNodes = $xml.SelectNodes("//*[@Group='_Hidden']")
+
+    # Remove each hidden node
+    foreach ($node in $hiddenNodes) {
+        $node.ParentNode.RemoveChild($node) | Out-Null
+    }
+    
+    # Select all extended columns nodes based on the Group attribute
+    $extendedColumns = $xml.SelectNodes("//*[@Group='Extended Columns']")
+    if($extendedColumns -ne $null) {
+        Write-host "Extended columns count: " $extendedColumns.Count
+        # Remove each node
+        foreach ($node in $extendedColumns) {
+            $node.ParentNode.RemoveChild($node) | Out-Null
+        }
+    }
+
+
+    # Get all 'Field' nodes with attribute Hidden='TRUE'
+    $hiddenFields = $xml.SelectNodes("//Field[@Hidden='TRUE']")
+    if($null -ne $hiddenFields) {
+        Write-host "Hidden fields count: " $hiddenFields
+        # Remove all 'Field' nodes with attribute Hidden='TRUE'
+        foreach($field in $hiddenFields)
+        {
+            $field.ParentNode.RemoveChild($field) | Out-Null
+        }
+      
+    }
+  
 
     $propertyBagEntries = $xml.GetElementsByTagName('pnp:PropertyBagEntries')
     if ($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {

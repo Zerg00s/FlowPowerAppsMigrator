@@ -54,22 +54,26 @@ $Migration = Get-FormItemProperties `
     -dialogTitle "Enter source and target sites" `
     -propertiesOrder @("SOURCE_SITE_URL", "TARGET_SITE_URL", "MIGRATE_LISTS", "CLEAR_CREDENTIALS_CACHE") 
 
-$SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL
-$TARGET_SITE_URL = $Migration.TARGET_SITE_URL
+$SOURCE_SITE_URL = $Migration.SOURCE_SITE_URL.TrimEnd('/')
+$TARGET_SITE_URL = $Migration.TARGET_SITE_URL.TrimEnd('/')    
 $SOURCE_SITE_APP_ID = $MigratorConfig.'source-site-app-id'
 $SOURCE_SITE_APP_SECRET = $MigratorConfig.'source-site-app-secret'
 $TARGET_SITE_APP_ID = $MigratorConfig.'target-site-app-id'
 $TARGET_SITE_APP_SECRET = $MigratorConfig.'target-site-app-secret'
 
-$areAllEmpty = [string]::IsNullOrEmpty($SOURCE_SITE_APP_ID) -and 
-    [string]::IsNullOrEmpty($SOURCE_SITE_APP_SECRET) -and
-    [string]::IsNullOrEmpty($TARGET_SITE_APP_ID) -and
-    [string]::IsNullOrEmpty($TARGET_SITE_APP_SECRET)
+$varsToCheck = @('SOURCE_SITE_APP_ID', 'SOURCE_SITE_APP_SECRET', 'TARGET_SITE_APP_ID', 'TARGET_SITE_APP_SECRET')
+$areAllEmpty = $true
+$areAllFilled = $true
 
-$areAllFilled = (![string]::IsNullOrEmpty($SOURCE_SITE_APP_ID)) -and
-    (![string]::IsNullOrEmpty($SOURCE_SITE_APP_SECRET)) -and
-    (![string]::IsNullOrEmpty($TARGET_SITE_APP_ID)) -and
-    (![string]::IsNullOrEmpty($TARGET_SITE_APP_SECRET))
+foreach ($var in $varsToCheck) {
+    $value = Get-Variable -Name $var -ValueOnly
+    if ([string]::IsNullOrEmpty($value)) {
+        $areAllFilled = $false
+    } else {
+        $areAllEmpty = $false
+    }
+}
+
 
 if ($areAllEmpty -or $areAllFilled) {
     Write-Host "\config\migrator-config.json file validation passed" -ForegroundColor Green
@@ -81,25 +85,12 @@ if($areAllFilled){
     $USE_APP_ONLY_AUTHENTICATION = $true
 }
 
-if ($Migration.MIGRATE_LISTS -like "true" -or 
-    $Migration.MIGRATE_LISTS -like "yes" -or
-    $Migration.MIGRATE_LISTS -like "1"
-) {
-    $Migration.MIGRATE_LISTS = $true
-}else {
-    $Migration.MIGRATE_LISTS = $false
-}
+$Migration.MIGRATE_LISTS = $Migration.MIGRATE_LISTS -in ("true", "yes", "1")
+
 $MIGRATE_LISTS = $Migration.MIGRATE_LISTS
 
+$Migration.CLEAR_CREDENTIALS_CACHE = $Migration.CLEAR_CREDENTIALS_CACHE -in ("true", "yes", "1")
 
-if ($Migration.CLEAR_CREDENTIALS_CACHE -like "true" -or 
-    $Migration.CLEAR_CREDENTIALS_CACHE -like "yes" -or
-    $Migration.CLEAR_CREDENTIALS_CACHE -like "1"
-) {
-    $Migration.CLEAR_CREDENTIALS_CACHE = $true
-}else {
-    $Migration.CLEAR_CREDENTIALS_CACHE = $false
-}
 $CLEAR_CREDENTIALS_CACHE = $Migration.CLEAR_CREDENTIALS_CACHE
 
 . .\GenerateInitialMapping.ps1
@@ -117,8 +108,6 @@ elseIf($CLEAR_CREDENTIALS_CACHE){
     Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
 }
 
-# Verify the connection
-# $Response = Invoke-PnPSPRestMethod -Url "$TARGET_SITE_URL/_api/web/currentUser"
 Write-Host 
 Write-Host Connected to the target site -ForegroundColor Green 
 Write-Host "`tSite: $TARGET_SITE_URL" -ForegroundColor Yellow 
@@ -131,5 +120,4 @@ if ($MIGRATE_LISTS) {
 }
 
 . .\CompleteResourceMapping.ps1 -DoNotReconnect
-
 . .\ConvertPackage.ps1

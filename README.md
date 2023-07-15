@@ -170,9 +170,19 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 # Latest Updates
 
+### 3.9.3 Version - 2023-07-14
+#### Changes
+- Removing even more fields causing the infamous `0x80070005 (E_ACCESSDENIED)` error.
+- Trimming trailing slashes in the site URLs
+
+#### Known issues
+- Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
+- Migrated lists might need fields to be added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
+
+
 ### 3.9.2 Version - 2023-07-05
 #### Changes
-- Removing Site fields causing the infamous 0x80070005 (E_ACCESSDENIED) error.
+- Removing Site fields causing the infamous `0x80070005 (E_ACCESSDENIED)` error.
 
 #### Known issues
 - Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
