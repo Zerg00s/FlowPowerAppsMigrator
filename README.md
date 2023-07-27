@@ -5,7 +5,7 @@
 
 # Flow & Power Apps Migrator
 
-Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenants or sites? This is a common task when deploying apps and flows to production. Apps and flows have to be exported, imported and SharePoint actions manually updated. These manual updates are error-prone and labor intensive. **Flow & Power Apps Migrator** automatically converts exported flows and apps to be compatible with the target environment. 
+Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenants or sites? This is a common task when deploying apps and flows to production. Apps and flows must be exported, and imported, and SharePoint actions must be manually updated. These manual updates are error-prone and labor-intensive. **Flow & Power Apps Migrator** automatically converts exported flows and apps to be compatible with the target environment. 
 
 Flow & Power Apps Migrator also helps you migrate **SharePoint lists** that are used as a dependency for your Apps and Flows. There is an interactive UI form that lets you do just that.
 
@@ -16,7 +16,7 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 # Prerequisites 
 
 - [PowerShell 5.0 or later](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/install/installing-windows-powershell?view=powershell-7.2). 
-- Make sure that SharePoint site exist in the target environment. You don't have to create Lists and Libraries because this tool will do it for you.
+- Make sure that the SharePoint site exists in the target environment. You don't have to create Lists and Libraries because this tool will do it for you.
 - [Download the latest version of the Flow & Power Apps Migrator](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases).
 - Extract the ZIP package.
 - Open a regular Windows PowerShell command prompt.
@@ -42,7 +42,7 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 | Modern JSON List customizations  | ✔        |
 | SharePoint data   | ❌       |
 | Content Types   | ✔ (migrated automatically)     |
-| Lookup fields   | ⚠️ (migrated only if you migrate the lookup list too)        |
+| Lookup fields   | ⚠️ (migrated only if you migrate the lookup list, too)        |
 | Data Sources located in a single site  | ✔        |
 | Data Sources located in multiple sites and sub-sites   | ❌        |
 
@@ -84,7 +84,7 @@ The scripts will iterate through all ZIP files inside the `\src` directory and c
 ![](MISC/IMG/2018-07-25-21-11-04.png)
 
 ## 5. Import converted flows, apps and solutions
-Now go ahead and import your flows and apps to the destination tenant. All SharePoint actions are now be converted and point to the new location.
+Now you can import your flows and apps to the destination tenant. All SharePoint actions will now be converted and point to the new location.
 
 
 ###  <b>Power Apps</b> data sources are all converted
@@ -105,12 +105,13 @@ Now go ahead and import your flows and apps to the destination tenant. All Share
 
 - Does not support macOS and Linux.
 - Only SharePoint data sources are updated.
+- ZIP packages might not be converted if placed in a long path name on disk. For this reason, try placing the migrator as close to the root drive as possible.
 
 # Preparing a deployment package for your Clients and Partners
 
-What if you created an app or a flow that you want your Client or Partner to also have? You probably want to package your SharePoint Lists along with the apps and flows in a single package. Then you want to hand over this package along with simple installation instructions. Guess what? There is a script that prepares this package automatically for you.
+What if you created an app or flow you want your Client or Partner to have? You can package your SharePoint Lists and the apps and flows in a single package. Then you would like to hand over this package and simple installation instructions. Guess what? There is a script that prepares this package automatically for you.
 
-`Prepare-Deployment-Package-for-Client.bat` script prepares a deployment package that you can share with your Clients or Partners. 
+`Prepare-Deployment-Package-for-Client.bat` script prepares a deployment package you can share with your Clients or Partners. 
 
 ## On your end
 
@@ -127,10 +128,9 @@ What if you created an app or a flow that you want your Client or Partner to als
 ![image](https://user-images.githubusercontent.com/2797648/138608613-3ede0cf6-a331-4058-9feb-bf55030c7f55.png)
 
 
-
 ## On the Client's side
 
-- If not already exists, create a SharePoint Online site. It will contain SharePoint Lists and Libraries that Power Apps/Flows require.
+- If it does not already exists, create a SharePoint Online site. It will contain SharePoint Lists and Libraries that Power Apps/Flows require.
 - Open the `package` directory.
 - Run `Convert-Packages.bat` script. 
 - Provide target site URL.
@@ -149,7 +149,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 - Navigate to your SharePoint List
 - Click on one of the SharePoint list items
-- Click on ellipsis (3 dots) > Customize with Power Apps:
+- Click on the ellipsis (3 dots) > Customize with Power Apps:
 ![](MISC/IMG/CustomizeWithPowerApps.png)
 
 - Power apps Editor will open.
@@ -172,12 +172,12 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 ### 3.9.3 Version - 2023-07-14
 #### Changes
-- Removing even more fields causing the infamous `0x80070005 (E_ACCESSDENIED)` error.
+- Removing more fields causing the infamous `0x80070005 (E_ACCESSDENIED)` error.
 - Trimming trailing slashes in the site URLs
 
 #### Known issues
 - Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
-- Migrated lists might need fields to be added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
+- Migrated lists might need fields added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
 
 
 ### 3.9.2 Version - 2023-07-05
@@ -186,7 +186,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 #### Known issues
 - Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
-- Migrated lists might need fields to be added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
+- Migrated lists might need fields added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
 
 ### 3.9.1 Version - 2023-06-11
 #### Changes
@@ -195,7 +195,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 #### Known issues
 - If the source and the target sites were created using different languages, then the app migrator will fail with the [Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/34) error. 
 - Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
-- Migrated lists might need fields to be added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
+- Migrated lists might need fields added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
 
 ### 3.9.0 Version - 2023-06-07
 
@@ -216,7 +216,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 #### Known issues
 - If the source and the target sites were created using different languages, then the app migrator will fail with the [Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/34) error. 
 - Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
-- Migrated lists might need fields to be added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
+- Migrated lists might need fields added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
 
 ### 3.8.6 Version - 2023-05-10
 
@@ -252,8 +252,8 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - Added a check of the source and target site permissions. If the user does not have the required permissions, the app migrator will stop and display an error message.
 
 #### Known issues
-- Occasional error: [Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/34). This error is typically nothing to do with permissions. It is hard to diagnose, but one of the fixes is to delete a target site and rung the app migrator again.
-- Migrated lists with custom content types end up with extra content type that should be deleted manually, after migration.
+- Occasional error: [Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/34). This error typically has nothing to do with permissions. It is hard to diagnose, but one of the fixes is to delete a target site and rerun the app migrator.
+- Migrated lists with custom content types end up with extra content types that should be deleted manually, after migration.
 - Migrated lists might need fields to be added to the content type or a form.
 
 
@@ -266,7 +266,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - Fixed an issue with lists not being migrated
 
 #### Known issues
-- Migrated lists with custom content types end up with extra content type that should be deleted manually.
+- Migrated lists with custom content types end up with extra content types that should be deleted manually.
 - Migrated lists might need fields to be added to the content type or a form.
 
 
@@ -274,13 +274,13 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 ### 3.8 Version - 2022-09-04
 
 #### New features
-- Added ability to Clear Credentials cache (useful when your credentials pop-up opens and closes automatically, without prompting you to enter your credentials)
+- Added ability to Clear Credentials cache (helpful when your credentials pop-up opens and closes automatically, without prompting you to enter your credentials)
 
 #### Bug fixes
 - Fixed an issue with migrating between non-English SharePoint sites. 
 
 #### Known issues
-- Migrated lists with custom content types end up with extra content type that should be deleted manually.
+- Migrated lists with custom content types end up with extra content types that should be deleted manually.
 - Migrated lists might need fields to be added to the content type or a form.
 
 
@@ -290,9 +290,9 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - SharePoint list forms customized with Power Apps are now migrated by this tool. Credits to [kvadratnymedved](https://github.com/kvadratnymedved) and [amariak](https://github.com/amariak) for providing a solution. 🙏
 
 #### Known issues
-- Migrated lists with custom content types end up with extra content type that should be deleted manually.
+- Migrated lists with custom content types end up with extra content types that should be deleted manually.
 - Migrated lists might need fields to be added to the content type or a form.
-- Flow & Apps Migrator might cache your user credentials and not prompt you for them again. In this case, you will need to to follow the steps [described in this issue](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/25)
+- Flow & Apps Migrator might cache your user credentials and not prompt you for them again. In this case, you will need to follow the steps [described in this issue](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/25)
 
 
 ### 3.6 Version 
@@ -329,7 +329,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 New features added:
 
 - `Migrate-Packages.bat` script now migrates SharePoint lists and libraries that your Apps and Flow depend on.
-- Added `Prepare-Deployment-Package-for-Client.bat` script that lets you prepare a deployment package that you can share with your Clients or Partners. Running this script will generate a package directory that you can then send to your Clients and Partners. Distribution of your apps and flows is now easier than ever.
+- Added `Prepare-Deployment-Package-for-Client.bat` script to prepare a deployment package to share with your Clients or Partners. Running this script will generate a package directory you can send to your Clients and Partners. Distribution of your apps and flows is now easier than ever.
 
 ### 2.1 Version
 
