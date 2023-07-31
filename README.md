@@ -36,6 +36,8 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 | Standalone Desktop Flows   | ❌        |
 | Standalone Model-driven apps   | N/A (not tested)        |
 | Solutions containing multiple canvas apps and flows  | ✔        |
+| SharePoint Connectors   | ✔        |
+| Non-SharePoint Connectors such as Word for Business   | ❌        |
 | SharePoint Lists   | ✔        |
 | SharePoint Libraries   | ✔        |
 | Cross-Language Lists migration    | ❌ Both source and target sites must be created with the same language. Otherwise, you'll get the `0x80070005 (E_ACCESSDENIED)` error   |
