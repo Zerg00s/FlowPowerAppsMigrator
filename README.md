@@ -170,6 +170,10 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 # Latest Updates
 
+### 3.9.4 Version - 2023-08-6
+#### Changes
+- Now removing the node pnp:SiteFields from the Lists.xml PnP provisioning template. The empty node was causing the invalid template error.
+
 ### 3.9.3 Version - 2023-07-14
 #### Changes
 - Removing even more fields causing the infamous `0x80070005 (E_ACCESSDENIED)` error.
