@@ -14,7 +14,7 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 ## Download the latest version
 
 <p align='center'>
-   <a href="[https://github.com/Zerg00s/FlowPowerAppsMigrator/releases](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases)" title="Download Flow and Apps Migrator">
+   <a href="https://github.com/Zerg00s/FlowPowerAppsMigrator/releases" title="Download Flow and Apps Migrator">
      <img src="https://img.shields.io/badge/📩 Download-Migrator Latest Version-%23025a5f.svg?&style=for-the-badge&logoColor=red" />
   </a>&nbsp;&nbsp;     
 </p>  
