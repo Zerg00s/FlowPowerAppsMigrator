@@ -107,15 +107,15 @@ if ($MigrationType -eq "Export") {
     }
     
     # Select all extended columns nodes based on the Group attribute
-    $extendedColumns = $xml.SelectNodes("//*[@Group='Extended Columns']")
-    if($extendedColumns -ne $null) {
-        Write-host "Extended columns count: " $extendedColumns.Count
+    # We don't want to migrate extended columns
+    $extendedColumnNodes = $xml.SelectNodes("//*[@Group='Extended Columns']")
+    if($extendedColumnNodes -ne $null) {
+        Write-host "Extended columns count: " $extendedColumnNodes.Count
         # Remove each node
-        foreach ($node in $extendedColumns) {
-            $node.ParentNode.RemoveChild($node) | Out-Null
+        foreach ($extendedColumnNode in $extendedColumnNodes) {
+            $extendedColumnNode.ParentNode.RemoveChild($extendedColumnNode) | Out-Null
         }
     }
-
 
     # Get all 'Field' nodes with attribute Hidden='TRUE'
     $hiddenFields = $xml.SelectNodes("//Field[@Hidden='TRUE']")
@@ -128,8 +128,14 @@ if ($MigrationType -eq "Export") {
         }
       
     }
-  
 
+    $siteFields = $xml.GetElementsByTagName("pnp:SiteFields")
+    # Check if 'SiteFields' node is empty
+    if ($siteFields.ChildNodes.Count -eq 0) {
+        # Remove the 'SiteFields' node completely
+        $siteFields.ParentNode.RemoveChild($siteFields)
+    }
+    
     $propertyBagEntries = $xml.GetElementsByTagName('pnp:PropertyBagEntries')
     if ($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {
         for ($i = $propertyBagEntries.Count - 1; $i -gt -1 ; $i--) {

@@ -11,6 +11,14 @@ Flow & Power Apps Migrator also helps you migrate **SharePoint lists** that are 
 
 Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customized with Power Apps**. 
 
+## Download the latest version
+
+<p align='center'>
+   <a href="[https://github.com/Zerg00s/FlowPowerAppsMigrator/releases](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases)" title="Download Flow and Apps Migrator">
+     <img src="https://img.shields.io/badge/📩 Download-Migrator Latest Version-%23025a5f.svg?&style=for-the-badge&logoColor=red" />
+  </a>&nbsp;&nbsp;     
+</p>  
+
 ## Watch a Demo 
 [![](MISC/IMG/Video_Thumbnail.jpg)](https://youtu.be/06io-y3pMKU)
 # Prerequisites 
@@ -171,6 +179,10 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 
 # Latest Updates
+
+### 3.9.4 Version - 2023-08-6
+#### Changes
+- Now removing the node pnp:SiteFields from the Lists.xml PnP provisioning template. The empty node was causing the invalid template error.
 
 ### 3.9.3 Version - 2023-07-14
 #### Changes
