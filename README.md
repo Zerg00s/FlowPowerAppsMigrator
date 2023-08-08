@@ -193,7 +193,6 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
 - Migrated lists might need fields added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
 
-
 ### 3.9.2 Version - 2023-07-05
 #### Changes
 - Removing Site fields causing the infamous `0x80070005 (E_ACCESSDENIED)` error.
@@ -242,14 +241,11 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 #### Changes
 - Users connected to the source and target sites are now displayed in the console for easier troubleshooting.
 
-# Latest Updates
 ### 3.8.4 Version - 2023-02-03
 
 #### Changes
 - Fixed the issue caused by lists having multiple personal views.
 
-
-# Latest Updates
 ### 3.8.3 Version - 2022-09-30
 
 #### Changes
@@ -273,7 +269,6 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 # 👉 [Troubleshooting Guide](https://github.com/Zerg00s/FlowPowerAppsMigrator/wiki/How-to-deal-with-the-%22Make-sure-you-have-FULL-CONTROL-at-the-source-site%22-Issue)
 
-# Latest Updates
 ### 3.8.1 Version - 2022-09-04
 
 #### Bug fixes
