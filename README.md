@@ -182,7 +182,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 ### 3.9.4 Version - 2023-08-6
 #### Changes
-- Now removing the node pnp:SiteFields from the Lists.xml PnP provisioning template. The empty node was causing the invalid template error.
+- The pnp:SiteFields node is now automatically removed from the Lists.xml PnP provisioning template if it's empty. An empty node was causing the "invalid template" errors.
 
 ### 3.9.3 Version - 2023-07-14
 #### Changes
