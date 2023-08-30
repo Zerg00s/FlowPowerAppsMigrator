@@ -19,11 +19,9 @@ else {
 }
 
 try {
-    $Response = Invoke-PnPSPRestMethod -Url "$SOURCE_SITE_URL/_api/web/currentUser"
     Write-Host
     Write-Host Connected to the source site -ForegroundColor Green 
     Write-Host "`tSite: $SOURCE_SITE_URL" -ForegroundColor Yellow 
-    Write-Host "`tUser: $($Response.Title) ($($Response.Email))" -ForegroundColor Yellow 
 
     $lists = Get-PnPList -Includes Views, Fields, DefaultView
 }
