@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.9.5&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.9.6&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -182,7 +182,15 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 # Latest Updates
 
-### 3.9.4 Version - 2023-08-6
+### 3.9.6 Version - 2023-09-06
+#### Changes
+- Addressed issue #66 [You cannot call a method on a null-valued expression](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/66)
+
+### 3.9.5 Version - 2023-08-30
+#### Changes
+- Removed the REST API call that was causing 403 error for some users.
+
+### 3.9.4 Version - 2023-08-06
 #### Changes
 - The pnp:SiteFields node is now automatically removed from the Lists.xml PnP provisioning template if it's empty. An empty node was causing the "invalid template" errors.
 

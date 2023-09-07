@@ -126,7 +126,7 @@ function Get-FormArrayItem {
 
         $ComboBox.DropDownStyle  = [System.Windows.Forms.ComboBoxStyle]::DropDown;                      
         foreach($item in $items){
-            $suppress = $ComboBox.Items.add($item)
+            $ComboBox.Items.add($item) | Out-Null
         }
         $ComboBox.SelectedIndex = 1        
   
@@ -144,7 +144,7 @@ function Get-FormArrayItem {
         $Panel.Height += $spaceBetweenControls    
 
         function Combobox{
-            if ($ComboBox.SelectedItem -eq $null){
+            if ($null -eq $ComboBox.SelectedItem){
                 $OKButton.Enabled = $false
             }else{
                 $OKButton.Enabled = $true

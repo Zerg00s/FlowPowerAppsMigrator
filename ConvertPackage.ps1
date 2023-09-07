@@ -27,7 +27,7 @@ $resources = Import-Csv  -Path .\resourceMapping.csv
 
 # Create dist folder if it does not exist
 if (-not (Test-Path .\dist)) {
-    $suppress = New-Item -ItemType Directory -Path .\dist
+    New-Item -ItemType Directory -Path .\dist | Out-Null
 }
 
 for ($k = 0; $k -lt $packages.count; $k++) {

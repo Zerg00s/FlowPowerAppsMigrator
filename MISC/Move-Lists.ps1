@@ -109,8 +109,8 @@ if ($MigrationType -eq "Export") {
     # Select all extended columns nodes based on the Group attribute
     # We don't want to migrate extended columns
     $extendedColumnNodes = $xml.SelectNodes("//*[@Group='Extended Columns']")
-    if($extendedColumnNodes -ne $null) {
-        Write-host "Extended columns count: " $extendedColumnNodes.Count
+    if ($extendedColumnNodes -ne $null) {
+        Write-Host "Extended columns count: " $extendedColumnNodes.Count
         # Remove each node
         foreach ($extendedColumnNode in $extendedColumnNodes) {
             $extendedColumnNode.ParentNode.RemoveChild($extendedColumnNode) | Out-Null
@@ -119,27 +119,34 @@ if ($MigrationType -eq "Export") {
 
     # Get all 'Field' nodes with attribute Hidden='TRUE'
     $hiddenFields = $xml.SelectNodes("//Field[@Hidden='TRUE']")
-    if($null -ne $hiddenFields) {
-        Write-host "Hidden fields count: " $hiddenFields
+    if ($null -ne $hiddenFields) {
+        Write-Host "Hidden fields count: " $hiddenFields
         # Remove all 'Field' nodes with attribute Hidden='TRUE'
-        foreach($field in $hiddenFields)
-        {
+        foreach ($field in $hiddenFields) {
             $field.ParentNode.RemoveChild($field) | Out-Null
         }
       
     }
 
-    $siteFields = $xml.GetElementsByTagName("pnp:SiteFields")
+    $siteFields = $xml.GetElementsByTagName("pnp:SiteFields")   
+   
     # Check if 'SiteFields' node is empty
-    if ($siteFields.ChildNodes.Count -eq 0) {
-        # Remove the 'SiteFields' node completely
-        $siteFields.ParentNode.RemoveChild($siteFields)
+    if ($null -ne $siteFields) {
+        if($siteFields.GetType().Name -eq "XmlElementList"){
+            $siteFields = $siteFields[0]
+        }
+
+        if ( $siteFields.ChildNodes.Count -eq 0) {
+            # Remove the 'SiteFields' node completely
+            $siteFields.ParentNode.RemoveChild($siteFields) | Out-Null
+        }
     }
+    
     
     $propertyBagEntries = $xml.GetElementsByTagName('pnp:PropertyBagEntries')
     if ($propertyBagEntries -ne $null -and $propertyBagEntries.Count -gt 0) {
         for ($i = $propertyBagEntries.Count - 1; $i -gt -1 ; $i--) {
-            $supress = $propertyBagEntries[$i].ParentNode.RemoveChild($propertyBagEntries[$i])
+            $propertyBagEntries[$i].ParentNode.RemoveChild($propertyBagEntries[$i])  | Out-Null
         }
     }
 
@@ -150,7 +157,13 @@ if ($MigrationType -eq "Export") {
     foreach ($title in $titles) {
         # Get the latest list item form layout. Footer, Header and the Body:
         $list = Get-PnPList $title -Includes ContentTypes
+        if ($list -is [array]) {
+            $list = $list[0]
+        }        
         $contentType = $list.ContentTypes | Where-Object { $_.Name -eq "Item" }
+        if($null -eq $contentType){
+            continue
+        }
         $contentType.ClientFormCustomFormatter | Set-Content .\$title.json
     }
 }
