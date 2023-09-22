@@ -132,14 +132,16 @@ if ($MigrationType -eq "Export") {
    
     # Check if 'SiteFields' node is empty
     if ($null -ne $siteFields) {
-        if($siteFields.GetType().Name -eq "XmlElementList"){
+        if ($siteFields.GetType().Name -eq "XmlElementList") {
             $siteFields = $siteFields[0]
         }
 
-        if ( $siteFields.ChildNodes.Count -eq 0) {
-            # Remove the 'SiteFields' node completely
-            $siteFields.ParentNode.RemoveChild($siteFields) | Out-Null
-        }
+        if ($null -ne $siteFields.ChildNodes) {
+            if ($siteFields.ChildNodes.Count -eq 0) {
+                # Remove the 'SiteFields' node completely
+                $siteFields.ParentNode.RemoveChild($siteFields) | Out-Null
+            }
+        }       
     }
     
     
@@ -161,7 +163,7 @@ if ($MigrationType -eq "Export") {
             $list = $list[0]
         }        
         $contentType = $list.ContentTypes | Where-Object { $_.Name -eq "Item" }
-        if($null -eq $contentType){
+        if ($null -eq $contentType) {
             continue
         }
         $contentType.ClientFormCustomFormatter | Set-Content .\$title.json
