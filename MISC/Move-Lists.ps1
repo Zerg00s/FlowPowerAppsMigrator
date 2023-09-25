@@ -179,10 +179,12 @@ if ($MigrationType -eq "Import") {
     catch {
         Write-Host "[Error] " -NoNewline -ForegroundColor Red
         if ($error[0].Exception.Message -match "(403)" -or $error[0].Exception.Message -match "unauthorized") {
-            Write-Host "Make sure you have full control at the target site $TargetSite" -ForegroundColor Yellow
+            Write-Host "Make sure you have full control at the target site. However, This error is not always related to the permissions. $TargetSite" -ForegroundColor Yellow
         }
         elseif ($error[0].Exception.Message -match "E_ACCESSDENIED") {
-            Write-Host "Make sure that both target site and the source sites created with the same language. Cross-language list migration is not supported." -ForegroundColor Cyan
+            Write-Host "Tips: 1) Make sure that both target site and the source sites created with the same language. Cross-language list migration is not supported." -ForegroundColor Cyan
+            Write-Host "Tips: 2) Read https://github.com/Zerg00s/FlowPowerAppsMigrator/wiki -> Create a SharePoint-only application and use it for authenticaiton" -ForegroundColor Cyan
+            Write-Host "Tips: 3) Create an issue on https://github.com/Zerg00s/FlowPowerAppsMigrator/issues. And Share the Lists.xml file in the root folder." -ForegroundColor Cyan
         }
         else {
             Write-Host $error[0].Exception.Message

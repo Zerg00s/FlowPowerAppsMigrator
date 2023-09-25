@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.9.7&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.9.8&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -181,6 +181,10 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 # 👉 [Troubleshooting Guide](https://github.com/Zerg00s/FlowPowerAppsMigrator/wiki/How-to-deal-with-the-%22Make-sure-you-have-FULL-CONTROL-at-the-source-site%22-Issue)
 
 # Latest Updates
+
+### 3.9.8 Version - 2023-09-25
+#### Changes
+- Added additional tips to the users who are getting the `0x80070005 (E_ACCESSDENIED)` error.
 
 ### 3.9.7 Version - 2023-09-22
 #### Changes
