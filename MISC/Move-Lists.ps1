@@ -106,6 +106,28 @@ if ($MigrationType -eq "Export") {
         $node.ParentNode.RemoveChild($node) | Out-Null
     }
     
+    $nodesToRemove = @(
+        "0x0100415C46DF0F4B45939BDEC96C5014A10E",  # Microblog Properties Content Type
+        "0x0101009148F5A04DDD49CBA7127AADA5FB792B",  # Rich Media Asset Content Type
+        "0x0101009148F5A04DDD49CBA7127AADA5FB792B00291D173ECE694D56B19D111489C4369D"  # Video Rendition Content Type
+        "0x0101009D1CB255DA76424F860D91F20E6C41180043153F945E98468297E67C3EEE43AB70"  # Space Content Type
+    )
+
+    foreach ($nodeId in $nodesToRemove) {
+        $nodes = $xml.SelectNodes("//*[@ID='$nodeId']")
+        foreach ($node in $nodes) {
+            $node.ParentNode.RemoveChild($node) | Out-Null
+        }
+    }
+
+    # Find all nodes with CustomFormatter attribute and remove this attribute along with its value
+    # <Field CustomFormatter="XXX" DisplayName="Choice Field" FillInChoice="FALSE" Format="Dropdown" IsModern="TRUE" Name="ChoiceField" Title="Choice Field" Type="Choice" ID="{37f50195-22dc-46c3-bbd5-70f5c539e6c7}" SourceID="{{listid:Test list}}" >
+
+    $nodes = $xml.SelectNodes("//*[@CustomFormatter]")
+    foreach ($node in $nodes) {
+        $node.RemoveAttribute("CustomFormatter") | Out-Null
+    }
+    
     # Select all extended columns nodes based on the Group attribute
     # We don't want to migrate extended columns
     $extendedColumnNodes = $xml.SelectNodes("//*[@Group='Extended Columns']")

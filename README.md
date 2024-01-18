@@ -1,6 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.9.8&color=white)
+![Version](https://img.shields.io/static/v1?label=Version&message=3.10.0&color=white)
 
 
 # Flow & Power Apps Migrator
@@ -49,7 +49,8 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 | SharePoint Lists   | ✔        |
 | SharePoint Libraries   | ✔        |
 | Cross-Language Lists migration    | ❌ Both source and target sites must be created with the same language. Otherwise, you'll get the `0x80070005 (E_ACCESSDENIED)` error   |
-| Modern JSON List customizations  | ✔        |
+| JSON List customizations  | ✔        |
+| JSON Column formatting   | ❌        |
 | SharePoint data   | ❌       |
 | Content Types   | ✔ (migrated automatically)     |
 | Lookup fields   | ⚠️ (migrated only if you migrate the lookup list, too)        |
@@ -181,6 +182,13 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 # 👉 [Troubleshooting Guide](https://github.com/Zerg00s/FlowPowerAppsMigrator/wiki/How-to-deal-with-the-%22Make-sure-you-have-FULL-CONTROL-at-the-source-site%22-Issue)
 
 # Latest Updates
+
+
+### 3.10.0 Version - 2024-01-18
+#### Changes
+- Removed migration of the column formatting JSON. This was causing the issues with the migrated lists.
+- Removing the migration of several out-of-the-box content types. 
+
 
 ### 3.9.8 Version - 2023-09-25
 #### Changes
