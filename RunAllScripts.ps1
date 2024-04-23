@@ -105,7 +105,7 @@ if($USE_APP_ONLY_AUTHENTICATION){
 elseIf($CLEAR_CREDENTIALS_CACHE){
     Connect-PnPOnline -Url $TARGET_SITE_URL -SPOManagementShell -ClearTokenCache -WarningAction Ignore
 }else{    
-    Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+    Connect-PnPOnline -Url $TARGET_SITE_URL -Interactive -WarningAction Ignore
 }
 
 Write-Host 
