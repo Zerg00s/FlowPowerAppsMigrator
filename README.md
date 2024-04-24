@@ -1,7 +1,6 @@
 ![SharePoint Online](https://img.shields.io/badge/SharePoint-Online-yellow.svg) 
-![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
-![Version](https://img.shields.io/static/v1?label=Version&message=3.10.0&color=white)
-
+![Version](https://img.shields.io/static/v1?label=Version&message=4.0.1&color=white)
+![Fork of](https://img.shields.io/static/v1?label=Fork%20of&message=Zerg00s/FlowPowerAppsMigrator&color=8A2BE2)
 
 # Flow & Power Apps Migrator
 
@@ -11,10 +10,16 @@ Flow & Power Apps Migrator also helps you migrate **SharePoint lists** that are 
 
 Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customized with Power Apps**. 
 
+## About this Fork
+
+I updated Denis Molodtsov's Apps Migrator to use the latest version of the [PnP.PowerShell](https://github.com/pnp/powershell) which relies on PowerShell 7. As the API changed in this version I had to make a few minor changes in the code to adopt accordingly. 
+
+This version of the Flow & Power Apps Migrator works also on tenants that prevent legacy authentication methods. 
+
 ## Download the latest version
 
 <p align='center'>
-   <a href="https://github.com/Zerg00s/FlowPowerAppsMigrator/releases" title="Download Flow and Apps Migrator">
+   <a href="https://github.com/AlexAuras/FlowPowerAppsMigrator/releases" title="Download Flow and Apps Migrator">
      <img src="https://img.shields.io/badge/📩 Download-Migrator Latest Version-%23025a5f.svg?&style=for-the-badge&logoColor=red" />
   </a>&nbsp;&nbsp;     
 </p>  
@@ -25,7 +30,7 @@ Finally, the Flow & Power Apps Migrator converts **SharePoint List Forms customi
 
 - [PowerShell 7.2 or later](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/install/installing-windows-powershell?view=powershell-7.2). 
 - Make sure that the SharePoint site exists in the target environment. You don't have to create Lists and Libraries because this tool will do it for you.
-- [Download the latest version of the Flow & Power Apps Migrator](https://github.com/Zerg00s/FlowPowerAppsMigrator/releases).
+- [Download the latest version of the Flow & Power Apps Migrator](https://github.com/AlexAuras/FlowPowerAppsMigrator/releases).
 - Extract the ZIP package.
 - Open a PowerShell 7 command prompt.
 - Navigate to the extracted folder.
