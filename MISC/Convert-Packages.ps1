@@ -44,7 +44,7 @@ $TARGET_SITE_URL = $Migration.TARGET_SITE_URL
 if($USE_APP_ONLY_AUTHENTICATION){
     Connect-PnPOnline -Url $TARGET_SITE_URL -ClientId $TARGET_SITE_APP_ID -ClientSecret $TARGET_SITE_APP_SECRET -WarningAction Ignore
 }else{
-    Connect-PnPOnline -Url $TARGET_SITE_URL -UseWebLogin -WarningAction Ignore
+    Connect-PnPOnline -Url $TARGET_SITE_URL -Interactive -WarningAction Ignore
 }
 
 $xmlFiles = Get-ChildItem *.xml

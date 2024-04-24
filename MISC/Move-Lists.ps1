@@ -83,10 +83,10 @@ if ($MigrationType -eq "Export") {
     }
     
     if ($exportContentTypes) {
-        Get-PnPProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists, ContentTypes, Fields -Force -WarningAction Ignore 
+        Get-PnPSiteTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists, ContentTypes, Fields -Force -WarningAction Ignore 
     }
     else {
-        Get-PnPProvisioningTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists -Force -WarningAction Ignore
+        Get-PnPSiteTemplate -ListsToExtract $titles -Out "Lists.xml" -Handlers Lists -Force -WarningAction Ignore
     }
 
     # Remove all Property Bag entries from the lists. Begin
@@ -175,7 +175,7 @@ if ($MigrationType -eq "Export") {
     }
 
     $xml.Save('Lists.xml')
-    "<?xml version=""1.0""?>`n" + (Get-Content "Lists.xml" -Raw -Encoding UTF8) | Set-Content "Lists.xml" -Encoding UTF8
+    (Get-Content "Lists.xml" -Raw -Encoding UTF8) | Set-Content "Lists.xml" -Encoding UTF8
 
     # Remove all Property Bag entries from the lists. End
     foreach ($title in $titles) {
@@ -196,7 +196,7 @@ if ($MigrationType -eq "Import") {
     Write-Host "Importing lists and libraries..." -ForegroundColor Yellow
     
     try {
-        Apply-PnPProvisioningTemplate -Path Lists.xml 
+        Invoke-PnPSiteTemplate -Path Lists.xml 
     }
     catch {
         Write-Host "[Error] " -NoNewline -ForegroundColor Red
