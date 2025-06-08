@@ -42,9 +42,17 @@ for ($k = 0; $k -lt $packages.count; $k++) {
         for ($i = 0; $i -lt $resources.Count; $i++) {
             Write-Host Converting $resources[$i].resource "... "
             if ($resources[$i].newId) {
-                (Get-Content -LiteralPath $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content -LiteralPath $_.FullName
-                Write-host "  [Success] " -ForegroundColor Green -NoNewline
-                Write-host  $($resources[$i].resource) converted
+                try {
+                    $content = Get-Content -LiteralPath $_.FullName -ErrorAction Stop
+                    $content -replace $resources[$i].oldId, $resources[$i].newId | Set-Content -LiteralPath $_.FullName
+                    Write-host "  [Success] " -ForegroundColor Green -NoNewline
+                    Write-host  $($resources[$i].resource) converted
+                }
+                catch {
+                    Write-host "  [Error] " -ForegroundColor Red -NoNewline
+                    Write-host "Failed to process file: $($_.FullName)"
+                    Write-host "  Error: $_" -ForegroundColor Red
+                }
             }
             else {
                 if ($resources[$i].resource -match ".aspx" -eq $false) {
@@ -73,7 +81,15 @@ for ($k = 0; $k -lt $packages.count; $k++) {
             $files | ForEach-Object {
                 for ($i = 0; $i -lt $resources.Count; $i++) {
                     if ([System.String]::IsNullOrEmpty($resources[$i].newId) -eq $false) {
-                        (Get-Content -LiteralPath $_.FullName) -replace $resources[$i].oldId, $resources[$i].newId | Set-Content -LiteralPath $_.FullName
+                        try {
+                            $content = Get-Content -LiteralPath $_.FullName -ErrorAction Stop
+                            $content -replace $resources[$i].oldId, $resources[$i].newId | Set-Content -LiteralPath $_.FullName
+                        }
+                        catch {
+                            Write-host "  [Error] " -ForegroundColor Red -NoNewline
+                            Write-host "Failed to process MSAPP file: $($_.FullName)"
+                            Write-host "  Error: $_" -ForegroundColor Red
+                        }
                     }
                     else {                        
                         if ($resources[$i].resource -match ".aspx" -eq $false) {
