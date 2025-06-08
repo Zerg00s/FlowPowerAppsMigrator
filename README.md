@@ -2,7 +2,6 @@
 ![Windows](https://img.shields.io/static/v1?label=OS&message=Windows&color=green)
 ![Version](https://img.shields.io/static/v1?label=Version&message=3.10.0&color=white)
 
-
 # Flow & Power Apps Migrator
 
 Have you ever tried moving canvas apps or cloud flows across Microsoft 365 tenants or sites? This is a common task when deploying apps and flows to production. Apps and flows must be exported, and imported, and SharePoint actions must be manually updated. These manual updates are error-prone and labor-intensive. **Flow & Power Apps Migrator** automatically converts exported flows and apps to be compatible with the target environment. 
@@ -256,6 +255,11 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 - If the source and the target sites were created using different languages, then the app migrator will fail with the [Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))](https://github.com/Zerg00s/FlowPowerAppsMigrator/issues/34) error. 
 - Migrated lists with custom content types end up with an extra content type that should be deleted manually after migration.
 - Migrated lists might need fields added to the content type or a form. In some cases, migrated lists show only the Title in the edit form.
+
+### 3.10.1 Version - 2025-06-08
+
+#### Changes
+- Added more error handling to the migrator. If the migrator fails, it will now display a more descriptive error message.
 
 ### 3.8.6 Version - 2023-05-10
 
