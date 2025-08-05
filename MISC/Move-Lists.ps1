@@ -139,6 +139,20 @@ if ($MigrationType -eq "Export") {
         }
     }
 
+    # Fix Formula nodes - replace [{fieldtitle:FieldName}] with just FieldName
+    $formulaNodes = $xml.SelectNodes("//Formula")
+    if ($formulaNodes -ne $null -and $formulaNodes.Count -gt 0) {
+        Write-Host "Processing Formula nodes: " $formulaNodes.Count
+        foreach ($formulaNode in $formulaNodes) {
+            if ($formulaNode.InnerText -match '\[\{fieldtitle:([^}]+)\}\]') {
+                $originalFormula = $formulaNode.InnerText
+                $updatedFormula = $originalFormula -replace '\[\{fieldtitle:([^}]+)\}\]', '$1'
+                $formulaNode.InnerText = $updatedFormula
+                Write-Host "Updated formula: $originalFormula -> $updatedFormula"
+            }
+        }
+    }
+
     # Get all 'Field' nodes with attribute Hidden='TRUE'
     $hiddenFields = $xml.SelectNodes("//Field[@Hidden='TRUE']")
     if ($null -ne $hiddenFields) {
