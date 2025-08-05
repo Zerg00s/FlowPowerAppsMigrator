@@ -182,7 +182,7 @@ SharePoint List forms customized with Power Apps can be migrated if you follow t
 
 # Latest Updates
 
-### 3.10.1 Version - 2025-08-05
+### 3.10.2 Version - 2025-08-05
 #### Changes
 - Fixed the issue #84 with calculated columns not being migrated correctly.
 
